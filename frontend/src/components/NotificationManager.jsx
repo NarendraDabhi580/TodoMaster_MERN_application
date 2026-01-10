@@ -18,29 +18,6 @@ const NotificationManager = () => {
         const response = await axiosInstance.get("/todo/todos");
         const tasks = response.data.todo || [];
 
-        // --- TESTING CONFIGURATION (FRONTEND) ---
-        // Set to specific time string "HH:MM" (24h format) to test notification trigger.
-        // e.g. "00:22" for 12:22 AM.
-        const TEST_TIME_TRIGGER = "00:40";
-
-        if (TEST_TIME_TRIGGER) {
-          const currentTime = new Date();
-          const [hours, minutes] = TEST_TIME_TRIGGER.split(":").map(Number);
-
-          // If we haven't reached the test time yet
-          if (
-            currentTime.getHours() < hours ||
-            (currentTime.getHours() === hours &&
-              currentTime.getMinutes() < minutes)
-          ) {
-            console.log(
-              `[Frontend Notification] Waiting for test time ${TEST_TIME_TRIGGER}... Current: ${currentTime.toLocaleTimeString()}`
-            );
-            return;
-          }
-        }
-        // ----------------------
-
         tasks.forEach((task) => {
           if (
             task.status === "Completed" ||
@@ -90,14 +67,11 @@ const NotificationManager = () => {
             // To make testing easier, let's log if prevented by cooldown.
 
             if (lastNotified && now - parseInt(lastNotified, 10) <= COOLDOWN) {
-              if (TEST_TIME_TRIGGER) {
-                console.log(`[Frontend] Bypassing cooldown for testing.`);
-              } else {
-                console.log(
-                  `[Frontend] Skipping notification for ${task.title} due to cooldown.`
-                );
-                return; // Skip if cooldown active and not testing
-              }
+              console.log(
+                `[Frontend] Skipping notification for ${task.title} due to cooldown.`
+              );
+              // Return here to avoid sending notification
+              return;
             }
 
             // Send notification (if strict checks passed or bypassed)

@@ -9,12 +9,15 @@ const cors = require("cors");
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", process.env.FRONTEND_URL].filter(Boolean), // Filter out undefined if env var not set
     credentials: true,
   })
 );
 
-connectDb();
+// Trust proxy is required for secure cookies behind Render/Heroku load balancers
+app.set("trust proxy", 1);
+
+// connectDb called before server start
 app.use((req, res, next) => {
   if (req.method === "POST" && !req.headers["content-type"]) {
     req.headers["content-type"] = "application/json";
@@ -32,9 +35,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/todo", todoRoutes);
 app.use("/uploads", express.static("uploads"));
 
-app.listen(3200, () => {
-  console.log("Srver is running on PORT : 3200");
-  const startScheduler = require("./utils/scheduler");
-  startScheduler();
+const PORT = process.env.PORT || 5000;
+
+connectDb().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Srver is running on PORT : ${PORT}`);
+    console.log("Environment:", process.env.NODE_ENV);
+    const startScheduler = require("./utils/scheduler");
+    startScheduler();
+  });
 });
 // Server config

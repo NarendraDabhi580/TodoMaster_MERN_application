@@ -6,7 +6,7 @@ import loadingEventBus, {
 
 // Create axios instance with base configuration
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3200/api",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3200/api",
   withCredentials: true, // Important: Send cookies with requests
 });
 

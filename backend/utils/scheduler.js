@@ -68,23 +68,10 @@ const checkReminders = async () => {
     // You can add more or modify these.
     const TARGET_TIMES = ["00:01", "12:01", "20:00"];
 
-    // --- TESTING OVERRIDE ---
-    // If you want to force a trigger right now for testing, add the current or upcoming minute here.
-    // e.g. const TEST_TIME = "00:19";
-    const TEST_TIME = "00:19";
-    if (TEST_TIME && !TARGET_TIMES.includes(TEST_TIME)) {
-      TARGET_TIMES.push(TEST_TIME);
-    }
-    // ----------------------
-
     if (!TARGET_TIMES.includes(currentHHMM)) {
-      // Log sparingly or only on change to avoid spamming console?
-      // For development we log.
-      console.log(
-        `[Scheduler] Current time ${currentHHMM} does not match target times [${TARGET_TIMES.join(
-          ", "
-        )}]. Waiting...`
-      );
+      // For production we might NOT want to log every minute to avoid clutter
+      // but for now it's fine.
+      // console.log(`[Scheduler] Waiting... Current: ${currentHHMM}`);
       return;
     }
 
