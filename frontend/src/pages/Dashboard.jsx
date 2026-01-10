@@ -46,13 +46,13 @@ const Dashboard = () => {
                 <Sparkles className="h-4 w-4 text-indigo-600 transition-transform group-hover:scale-110" />
                 Start Planning
               </Link>
-              <a
-                href="#"
+              <Link
+                to="/about"
                 className="group inline-flex items-center justify-center gap-2 rounded-full border border-neutral-800 bg-neutral-950 px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-neutral-900 active:scale-95"
               >
                 Features
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>
