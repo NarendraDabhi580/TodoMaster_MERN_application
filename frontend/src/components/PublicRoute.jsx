@@ -1,0 +1,27 @@
+import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { useAuth } from "../hooks/useAuth";
+
+const PublicRoute = ({ children }) => {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/tasks" replace />;
+  }
+
+  return children;
+};
+
+PublicRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default PublicRoute;

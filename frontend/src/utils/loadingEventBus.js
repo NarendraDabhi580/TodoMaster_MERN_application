@@ -1,0 +1,16 @@
+const loadingEventBus = {
+  on(event, callback) {
+    document.addEventListener(event, (e) => callback(e.detail));
+  },
+  dispatch(event, data) {
+    document.dispatchEvent(new CustomEvent(event, { detail: data }));
+  },
+  remove(event, callback) {
+    document.removeEventListener(event, callback);
+  },
+};
+
+export const SHOW_LOADING = "SHOW_LOADING";
+export const HIDE_LOADING = "HIDE_LOADING";
+
+export default loadingEventBus;
