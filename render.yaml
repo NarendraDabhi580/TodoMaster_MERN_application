@@ -28,7 +28,8 @@ services:
     rootDirectory: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
-    # Removed routes section - Render will use _redirects file from dist/
+    # SPA routing handled by _redirects file in dist/
+    # The _redirects file is automatically copied from public/ during build
     headers:
       - path: /*
         name: Cache-Control

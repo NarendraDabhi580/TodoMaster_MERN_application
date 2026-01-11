@@ -40,12 +40,25 @@ app.use("/uploads", express.static("uploads"));
 if (process.env.NODE_ENV === "production") {
   const frontendPath = path.join(__dirname, "../frontend/dist");
 
-  app.use(express.static(frontendPath));
+  // Serve static files from the frontend build
+  app.use(
+    express.static(frontendPath, {
+      maxAge: "1d", // Cache static assets for 1 day
+      etag: true,
+    })
+  );
 
   // Catch-all route for SPA (MUST BE LAST)
-  // Use regex instead of "*" for newer Express versions
+  // This handles all routes that don't match API routes
   app.get(/^\/(?!api).*/, (req, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
+    const indexPath = path.join(frontendPath, "index.html");
+    console.log(`SPA Fallback: ${req.path} -> index.html`);
+    res.sendFile(indexPath, (err) => {
+      if (err) {
+        console.error("Error serving index.html:", err);
+        res.status(500).send("Error loading application");
+      }
+    });
   });
 }
 

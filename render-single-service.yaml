@@ -1,0 +1,31 @@
+# Alternative Render Configuration: Single Service (Backend serves Frontend)
+# Use this if you want to deploy as a single web service instead of separate services
+# To use: rename this to render.yaml (backup the current one first)
+
+services:
+  # Combined Backend + Frontend Service
+  - type: web
+    name: taskmaster-app
+    env: node
+    region: oregon
+    # Build both backend and frontend
+    buildCommand: |
+      cd backend && npm install
+      cd ../frontend && npm install && npm run build
+    # Start the backend server (which serves the frontend in production)
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
