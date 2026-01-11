@@ -42,8 +42,9 @@ if (process.env.NODE_ENV === "production") {
 
   app.use(express.static(frontendPath));
 
-  // Catch-all (MUST BE LAST)
-  app.get("*", (req, res) => {
+  // Catch-all route for SPA (MUST BE LAST)
+  // Use regex instead of "*" for newer Express versions
+  app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
