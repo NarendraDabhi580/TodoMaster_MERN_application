@@ -5,8 +5,19 @@ import loadingEventBus, {
 } from "../utils/loadingEventBus";
 
 // Create axios instance with base configuration
+const getBaseUrl = () => {
+  let url = import.meta.env.VITE_API_URL || "http://localhost:3200/api";
+  // Remove trailing slash if present
+  url = url.replace(/\/$/, "");
+  // Append /api if not present
+  if (!url.endsWith("/api")) {
+    url += "/api";
+  }
+  return url;
+};
+
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3200/api",
+  baseURL: getBaseUrl(),
   withCredentials: true, // Important: Send cookies with requests
 });
 
@@ -83,7 +94,7 @@ axiosInstance.interceptors.response.use(
       try {
         // Try to refresh the access token
         await axios.post(
-          "http://localhost:3200/api/auth/refresh",
+          `${getBaseUrl()}/auth/refresh`,
           {},
           { withCredentials: true }
         );
