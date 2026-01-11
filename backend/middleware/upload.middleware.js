@@ -35,7 +35,11 @@ const cloudStorage = new CloudinaryStorage({
 
 // Select storage based on environment
 const storage =
-  process.env.NODE_ENV === "production" ? cloudStorage : diskStorage;
+  process.env.CLOUDINARY_CLOUD_NAME &&
+  process.env.CLOUDINARY_API_KEY &&
+  process.env.CLOUDINARY_API_SECRET
+    ? cloudStorage
+    : diskStorage;
 
 const upload = multer({
   storage: storage,

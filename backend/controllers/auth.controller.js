@@ -264,11 +264,11 @@ const updateUser = async (req, res) => {
     // Handle profile picture update
     if (req.file) {
       let fullUrl;
-      // If using Cloudinary (Production), req.file.path is the secure_url
+      // If using Cloudinary, req.file.path is the full secure_url (starts with http)
       if (req.file.path && req.file.path.startsWith("http")) {
         fullUrl = req.file.path;
       } else {
-        // Local Development
+        // Fallback for Local Development (DiskStorage)
         const protocol = req.protocol;
         const host = req.get("host");
         fullUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
