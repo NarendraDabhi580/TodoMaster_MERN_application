@@ -15,14 +15,14 @@ import { BarChart3 } from "lucide-react";
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-lg border border-white/10 bg-neutral-900/95 p-4 shadow-xl backdrop-blur-sm">
-        <p className="text-sm font-semibold text-white mb-2">
+      <div className="rounded-lg border border-(--border-color) bg-(--bg-secondary)/95 p-4 shadow-xl backdrop-blur-sm">
+        <p className="text-sm font-semibold text-(--text-primary) mb-2">
           {label} Priority
         </p>
         {payload.map((entry, index) => (
-          <p key={index} className="text-sm text-neutral-400">
+          <p key={index} className="text-sm text-(--text-secondary)">
             {entry.name}:{" "}
-            <span className="font-semibold text-white">{entry.value}</span>
+            <span className="font-semibold text-(--text-primary)">{entry.value}</span>
           </p>
         ))}
       </div>
@@ -48,7 +48,7 @@ const StatusTimelineChart = ({ data }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4 }}
-      className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
+      className="rounded-xl border border-(--border-color) bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
@@ -56,10 +56,10 @@ const StatusTimelineChart = ({ data }) => {
           <BarChart3 className="h-5 w-5 text-blue-400" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-white">
+          <h3 className="text-lg font-semibold text-(--text-primary)">
             Priority vs Status Analysis
           </h3>
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-(--text-secondary)">
             Task status breakdown by priority level
           </p>
         </div>

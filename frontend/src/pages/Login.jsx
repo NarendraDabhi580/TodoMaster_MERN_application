@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex-1 flex items-center justify-center w-full overflow-hidden text-white selection:bg-indigo-500/30">
+    <div className="relative flex-1 flex items-center justify-center w-full overflow-hidden selection:bg-indigo-500/30">
       {/* Main Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ const Login = () => {
         transition={{ duration: 0.5 }}
         className="relative z-10 w-full max-w-md px-6"
       >
-        <div className="overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-xl shadow-2xl">
+        <div className="overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) backdrop-blur-xl shadow-2xl">
           <div className="p-8">
             {/* Header */}
             <div className="mb-8 text-center">
@@ -54,10 +54,10 @@ const Login = () => {
               >
                 <Sparkles className="h-6 w-6 text-white" />
               </motion.div>
-              <h2 className="text-3xl font-bold tracking-tight text-white">
+              <h2 className="text-3xl font-bold tracking-tight text-(--text-primary)">
                 Welcome Back
               </h2>
-              <p className="mt-2 text-sm text-neutral-400">
+              <p className="mt-2 text-sm text-(--text-secondary)">
                 Log in to access your tasks and priorities.
               </p>
             </div>
@@ -68,12 +68,12 @@ const Login = () => {
               <div className="space-y-2">
                 <label
                   htmlFor="email"
-                  className="text-sm font-medium text-neutral-300"
+                  className="text-sm font-medium text-(--text-primary)"
                 >
                   Email Address
                 </label>
                 <div className="relative group">
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-neutral-500 group-focus-within:text-indigo-400 transition-colors">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-(--text-secondary) group-focus-within:text-indigo-500 transition-colors">
                     <Mail className="h-5 w-5" />
                   </div>
                   <input
@@ -82,7 +82,7 @@ const Login = () => {
                     id="email"
                     required
                     value={formData?.email}
-                    className="block w-full rounded-lg border border-neutral-800 bg-neutral-950/50 py-2.5 pl-10 pr-4 text-neutral-200 placeholder-neutral-500 shadow-sm transition-all focus:border-indigo-500/50 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                    className="block w-full rounded-lg border border-(--border-color) bg-(--bg-primary) py-2.5 pl-10 pr-4 text-(--text-primary) placeholder-text-(--text-secondary) shadow-sm transition-all focus:border-indigo-500/50 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                     placeholder="john@example.com"
                     onChange={handleChange}
                   />
@@ -94,19 +94,19 @@ const Login = () => {
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="password"
-                    className="text-sm font-medium text-neutral-300"
+                    className="text-sm font-medium text-(--text-primary)"
                   >
                     Password
                   </label>
                   <Link
                     to="/forgot-password"
-                    className="text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
+                    className="text-xs font-medium text-indigo-500 hover:text-indigo-600 transition-colors"
                   >
                     Forgot password?
                   </Link>
                 </div>
                 <div className="relative group">
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-neutral-500 group-focus-within:text-indigo-400 transition-colors">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-(--text-secondary) group-focus-within:text-indigo-500 transition-colors">
                     <Lock className="h-5 w-5" />
                   </div>
                   <input
@@ -115,7 +115,7 @@ const Login = () => {
                     id="password"
                     required
                     value={formData?.password}
-                    className="block w-full rounded-lg border border-neutral-800 bg-neutral-950/50 py-2.5 pl-10 pr-4 text-neutral-200 placeholder-neutral-500 shadow-sm transition-all focus:border-indigo-500/50 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                    className="block w-full rounded-lg border border-(--border-color) bg-(--bg-primary) py-2.5 pl-10 pr-4 text-(--text-primary) placeholder-text-(--text-secondary) shadow-sm transition-all focus:border-indigo-500/50 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                     placeholder="••••••••"
                     onChange={handleChange}
                   />
@@ -134,11 +134,11 @@ const Login = () => {
             </form>
 
             {/* Footer */}
-            <div className="mt-6 text-center text-sm text-neutral-400">
+            <div className="mt-6 text-center text-sm text-(--text-secondary)">
               Don&apos;t have an account?{" "}
               <Link
                 to="/register"
-                className="font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
+                className="font-medium text-indigo-500 hover:text-indigo-600 transition-colors"
               >
                 Sign up
               </Link>

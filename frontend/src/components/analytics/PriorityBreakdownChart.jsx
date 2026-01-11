@@ -13,13 +13,13 @@ import { TrendingUp } from "lucide-react";
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-lg border border-white/10 bg-neutral-900/95 p-3 shadow-xl backdrop-blur-sm">
-        <p className="text-sm font-semibold text-white">
+      <div className="rounded-lg border border-(--border-color) bg-(--bg-secondary)/95 p-3 shadow-xl backdrop-blur-sm">
+        <p className="text-sm font-semibold text-(--text-primary)">
           {payload[0].name} Priority
         </p>
-        <p className="text-sm text-neutral-400">
+        <p className="text-sm text-(--text-secondary)">
           Tasks:{" "}
-          <span className="font-semibold text-white">{payload[0].value}</span>
+          <span className="font-semibold text-(--text-primary)">{payload[0].value}</span>
         </p>
       </div>
     );
@@ -41,9 +41,9 @@ const CustomLegend = ({ payload }) => {
             className="h-3 w-3 rounded-full"
             style={{ backgroundColor: entry.color }}
           ></div>
-          <span className="text-sm text-neutral-400">
+          <span className="text-sm text-(--text-secondary)">
             {entry.value}:{" "}
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-(--text-primary)">
               {entry.payload.value}
             </span>
           </span>
@@ -65,7 +65,7 @@ const PriorityBreakdownChart = ({ data }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
-      className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
+      className="rounded-xl border border-(--border-color) bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
@@ -73,10 +73,10 @@ const PriorityBreakdownChart = ({ data }) => {
           <TrendingUp className="h-5 w-5 text-red-400" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-white">
+          <h3 className="text-lg font-semibold text-(--text-primary)">
             Priority Breakdown
           </h3>
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-(--text-secondary)">
             Distribution by priority level
           </p>
         </div>

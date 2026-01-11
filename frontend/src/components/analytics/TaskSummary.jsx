@@ -174,7 +174,7 @@ const TaskSummary = ({ stats, tasks }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
+      className="rounded-xl border border-(--border-color) bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
@@ -182,8 +182,8 @@ const TaskSummary = ({ stats, tasks }) => {
           <Target className="h-5 w-5 text-indigo-400" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-white">Task Summary</h3>
-          <p className="text-sm text-neutral-400">
+          <h3 className="text-lg font-semibold text-(--text-primary)">Task Summary</h3>
+          <p className="text-sm text-(--text-secondary)">
             Quick overview of your task metrics
           </p>
         </div>
@@ -210,10 +210,10 @@ const TaskSummary = ({ stats, tasks }) => {
                   <Icon className={`h-5 w-5 ${colors.iconColor}`} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-neutral-400 mb-1">
+                  <p className="text-xs font-medium text-(--text-secondary) mb-1">
                     {metric.title}
                   </p>
-                  <p className="text-2xl font-bold text-white mb-1">
+                  <p className="text-2xl font-bold text-(--text-primary) mb-1">
                     {metric.value}
                   </p>
                   <p className="text-xs text-neutral-500">

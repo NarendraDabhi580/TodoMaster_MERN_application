@@ -9,6 +9,7 @@ import About from "../pages/About";
 import Profile from "../pages/Profile";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
+import NotFound from "../pages/NotFound";
 import Navbar from "../components/Navbar";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PublicRoute from "../components/PublicRoute";
@@ -84,6 +85,8 @@ const AppRoute = () => {
             </PublicRoute>
           }
         />
+        {/* Catch-all Route for 404 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

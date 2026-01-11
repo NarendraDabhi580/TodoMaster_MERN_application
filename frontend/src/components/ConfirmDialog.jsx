@@ -26,18 +26,18 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm, title, message }) => {
             className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-full max-w-md bg-neutral-900/95 border border-white/10 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden">
+            <div className="w-full max-w-md bg-(--bg-secondary) border border-(--border-color) rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden">
               {/* Header */}
-              <div className="px-6 py-5 border-b border-white/10 bg-gradient-to-r from-indigo-600/10 to-purple-600/10">
+              <div className="px-6 py-5 border-b border-(--border-color) bg-(--bg-primary)">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/30">
-                    <LogOut className="h-6 w-6 text-white" />
+                    <LogOut className="h-6 w-6 text-(--text-primary)" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-white">
+                    <h2 className="text-xl font-bold text-(--text-primary)">
                       {title || "Confirm Action"}
                     </h2>
-                    <p className="text-xs text-neutral-400 mt-0.5">
+                    <p className="text-xs text-(--text-secondary) mt-0.5">
                       This action requires confirmation
                     </p>
                   </div>
@@ -46,16 +46,16 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm, title, message }) => {
 
               {/* Body */}
               <div className="px-6 py-6">
-                <p className="text-neutral-300 text-base leading-relaxed">
+                <p className="text-(--text-primary) text-base leading-relaxed">
                   {message || "Are you sure you want to proceed?"}
                 </p>
               </div>
 
               {/* Footer */}
-              <div className="flex justify-end gap-3 px-6 py-4 border-t border-white/10 bg-black/30">
+              <div className="flex justify-end gap-3 px-6 py-4 border-t border-(--border-color) bg-(--bg-primary)">
                 <button
                   onClick={onClose}
-                  className="px-6 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium text-white transition active:scale-95"
+                  className="px-6 py-2.5 bg-(--bg-primary) hover:bg-(--bg-secondary) border border-(--border-color) rounded-lg text-sm font-medium text-(--text-primary) transition active:scale-95"
                 >
                   Cancel
                 </button>
@@ -64,7 +64,7 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm, title, message }) => {
                     onConfirm();
                     onClose();
                   }}
-                  className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg text-sm font-medium text-white shadow-lg shadow-indigo-500/30 transition active:scale-95"
+                  className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg text-sm font-medium text-(--text-primary) shadow-lg shadow-indigo-500/30 transition active:scale-95"
                 >
                   Confirm
                 </button>

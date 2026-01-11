@@ -19,7 +19,7 @@ const PriorityTaskCard = ({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       whileHover={{ y: -4 }}
-      className={`group relative flex flex-col gap-3 rounded-xl border ${priorityConfig.border} bg-gradient-to-br ${priorityConfig.gradient} p-5 backdrop-blur-sm transition-all hover:shadow-lg hover:shadow-${priorityConfig.color}-500/10`}
+      className={`group relative flex flex-col gap-3 rounded-xl border ${priorityConfig.border} bg-(--bg-secondary) p-5 backdrop-blur-sm transition-all hover:shadow-lg hover:bg-(--bg-primary)`}
     >
       {/* Priority Indicator Bar */}
       <div
@@ -30,7 +30,7 @@ const PriorityTaskCard = ({
         <div className="flex flex-col gap-2 flex-1">
           <StatusBadge status={task.status} />
           <h3
-            className={`text-lg font-semibold ${priorityConfig.text} transition-colors`}
+            className={`text-lg font-semibold text-(--text-primary) transition-colors`}
           >
             {task.title}
           </h3>
@@ -40,7 +40,7 @@ const PriorityTaskCard = ({
         <div className="relative">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-neutral-500 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-lg"
+            className="text-(--text-secondary) hover:text-(--text-primary) transition-colors p-1 hover:bg-(--bg-primary) rounded-lg"
           >
             <MoreVertical className="h-5 w-5" />
           </button>
@@ -61,7 +61,7 @@ const PriorityTaskCard = ({
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: -10 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 top-8 z-20 w-48 bg-neutral-900 border border-white/10 rounded-lg shadow-xl overflow-hidden"
+                  className="absolute right-0 top-8 z-20 w-48 bg-(--bg-secondary) border border-(--border-color) rounded-lg shadow-xl overflow-hidden"
                 >
                   <div className="py-1">
                     {/* Edit */}
@@ -70,14 +70,14 @@ const PriorityTaskCard = ({
                         onEditTask(task);
                         setIsMenuOpen(false);
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-neutral-300 hover:bg-white/10 hover:text-white transition-colors"
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-(--text-primary) hover:bg-(--bg-primary) hover:text-(--text-primary) transition-colors"
                     >
                       <Edit className="h-4 w-4" />
                       Edit Task
                     </button>
 
                     {/* Divider */}
-                    <div className="my-1 border-t border-white/10" />
+                    <div className="my-1 border-t border-(--border-color)" />
 
                     {/* Delete */}
                     <button
@@ -98,7 +98,7 @@ const PriorityTaskCard = ({
         </div>
       </div>
 
-      <p className="text-sm text-neutral-400 line-clamp-2">
+      <p className="text-sm text-(--text-secondary) line-clamp-2">
         {task.description}
       </p>
 
@@ -108,21 +108,21 @@ const PriorityTaskCard = ({
           {task.tags.slice(0, 3).map((tag, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 rounded-md bg-white/10 px-2 py-1 text-xs text-neutral-300"
+              className="inline-flex items-center gap-1 rounded-md bg-(--bg-primary) px-2 py-1 text-xs text-(--text-primary)"
             >
               <Tag className="h-3 w-3" />
               {tag}
             </span>
           ))}
           {task.tags.length > 3 && (
-            <span className="inline-flex items-center rounded-md bg-white/10 px-2 py-1 text-xs text-neutral-400">
+            <span className="inline-flex items-center rounded-md bg-(--bg-primary) px-2 py-1 text-xs text-(--text-secondary)">
               +{task.tags.length - 3}
             </span>
           )}
         </div>
       )}
 
-      <div className="mt-auto flex items-center justify-between pt-4 border-t border-white/5">
+      <div className="mt-auto flex items-center justify-between pt-4 border-t border-(--border-color)">
         <div
           className={`flex items-center gap-1.5 text-xs ${priorityConfig.text} font-medium`}
         >
@@ -131,7 +131,7 @@ const PriorityTaskCard = ({
           ></div>
           {task.priority}
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-neutral-500">
+        <div className="flex items-center gap-1.5 text-xs text-(--text-secondary)">
           <Calendar className="h-3.5 w-3.5" />
           <span>{task.dueDate}</span>
         </div>

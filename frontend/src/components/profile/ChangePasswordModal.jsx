@@ -52,17 +52,17 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="w-full max-w-md bg-neutral-900 border border-white/10 rounded-xl shadow-xl overflow-hidden"
+            className="w-full max-w-md bg-(--bg-secondary) border border-(--border-color) rounded-xl shadow-xl overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-(--border-color) bg-(--bg-primary)">
+              <h3 className="text-lg font-semibold text-(--text-primary) flex items-center gap-2">
                 <Lock className="w-5 h-5 text-indigo-400" />
                 Change Password
               </h3>
               <button
                 onClick={onClose}
-                className="p-1 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                className="p-1 rounded-lg text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-primary) transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -71,7 +71,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
             {/* Form */}
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-neutral-400 mb-1">
+                <label className="block text-sm font-medium text-(--text-primary) mb-1">
                   Current Password
                 </label>
                 <input
@@ -80,13 +80,13 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                   value={passwords.currentPassword}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500/50"
+                  className="w-full px-4 py-2 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) focus:outline-none focus:border-indigo-500/50"
                   placeholder="Enter current password"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-neutral-400 mb-1">
+                <label className="block text-sm font-medium text-(--text-primary) mb-1">
                   New Password
                 </label>
                 <input
@@ -95,13 +95,13 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                   value={passwords.newPassword}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500/50"
+                  className="w-full px-4 py-2 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) focus:outline-none focus:border-indigo-500/50"
                   placeholder="Enter new password"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-neutral-400 mb-1">
+                <label className="block text-sm font-medium text-(--text-primary) mb-1">
                   Confirm New Password
                 </label>
                 <input
@@ -110,7 +110,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                   value={passwords.confirmPassword}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500/50"
+                  className="w-full px-4 py-2 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) focus:outline-none focus:border-indigo-500/50"
                   placeholder="Confirm new password"
                 />
               </div>
@@ -119,7 +119,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="mr-3 px-4 py-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/5 transition-colors"
+                  className="mr-3 px-4 py-2 rounded-lg text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-primary) transition-colors"
                 >
                   Cancel
                 </button>

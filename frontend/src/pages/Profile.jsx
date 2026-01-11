@@ -169,24 +169,26 @@ const Profile = () => {
   ];
 
   const colorClasses = {
-    indigo: "bg-indigo-500/20 border-indigo-500/30 text-indigo-400",
-    green: "bg-green-500/20 border-green-500/30 text-green-400",
-    yellow: "bg-yellow-500/20 border-yellow-500/30 text-yellow-400",
-    purple: "bg-purple-500/20 border-purple-500/30 text-purple-400",
+    indigo: "bg-(--bg-secondary) border-(--border-color) text-indigo-500",
+    green: "bg-(--bg-secondary) border-(--border-color) text-green-500",
+    yellow: "bg-(--bg-secondary) border-(--border-color) text-yellow-600",
+    purple: "bg-(--bg-secondary) border-(--border-color) text-purple-500",
   };
 
   return (
     <div className="flex-1 flex flex-col h-full w-full overflow-hidden">
       {/* Header */}
-      <div className="relative z-10 flex flex-col gap-6 px-8 py-8 border-b border-white/5 bg-black/20 backdrop-blur-xl">
+      <div className="relative z-10 flex flex-col gap-6 px-8 py-8 border-b border-light-action/20 dark:border-white/5 bg-(--bg-secondary)/80 backdrop-blur-xl transition-colors duration-300">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30">
-              <User className="h-6 w-6 text-indigo-400" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30">
+              <User className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Profile</h1>
-              <p className="text-sm text-neutral-400">
+              <h1 className="text-2xl font-bold text-(--text-primary)">
+                Profile
+              </h1>
+              <p className="text-sm text-(--text-secondary)">
                 Manage your account settings and preferences
               </p>
             </div>
@@ -194,7 +196,7 @@ const Profile = () => {
           {!isEditing && (
             <button
               onClick={handleEdit}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/30 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-100 dark:bg-indigo-500/20 border border-indigo-300 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-500/30 transition-colors"
             >
               <Edit2 className="h-4 w-4" />
               Edit Profile
@@ -210,7 +212,7 @@ const Profile = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/2 p-8 backdrop-blur-sm"
+            className="rounded-xl border border-(--border-color) bg-(--bg-secondary) p-8 backdrop-blur-sm transition-colors duration-300"
           >
             <div className="flex flex-col md:flex-row gap-8">
               {/* Avatar Section */}
@@ -223,7 +225,7 @@ const Profile = () => {
                     className="hidden"
                     accept="image/*"
                   />
-                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border-2 border-indigo-500/30 flex items-center justify-center overflow-hidden">
+                  <div className="w-32 h-32 rounded-full bg-linear-to-br from-indigo-500/20 to-purple-600/20 border-2 border-indigo-500/30 flex items-center justify-center overflow-hidden">
                     {preview || user?.profilePicture ? (
                       <img
                         src={preview || user?.profilePicture}
@@ -237,17 +239,19 @@ const Profile = () => {
                   {isEditing && (
                     <button
                       onClick={handleCameraClick}
-                      className="absolute bottom-0 right-0 p-2 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/30 transition-colors"
+                      className="absolute bottom-0 right-0 p-2 rounded-full bg-indigo-100 dark:bg-indigo-500/20 border border-indigo-300 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-500/30 transition-colors"
                     >
                       <Camera className="h-4 w-4" />
                     </button>
                   )}
                 </div>
                 <div className="text-center">
-                  <h2 className="text-xl font-bold text-white">
+                  <h2 className="text-xl font-bold text-(--text-primary)">
                     {user?.name || "User"}
                   </h2>
-                  <p className="text-sm text-neutral-400">Member</p>
+                  <p className="text-sm text-(--text-secondary)">
+                    Member
+                  </p>
                 </div>
               </div>
 
@@ -255,7 +259,7 @@ const Profile = () => {
               <div className="flex-1 space-y-6">
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-neutral-400 mb-2">
+                    <label className="block text-sm font-medium text-(--text-secondary) mb-2">
                       Full Name
                     </label>
                     {isEditing ? (
@@ -264,12 +268,12 @@ const Profile = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500/50"
+                        className="w-full px-4 py-2 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) focus:outline-none focus:border-indigo-500/50 transition-colors"
                       />
                     ) : (
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+                      <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-(--bg-secondary) border border-(--border-color) transition-colors">
                         <User className="h-4 w-4 text-neutral-400" />
-                        <span className="text-white">
+                        <span className="text-(--text-primary)">
                           {user?.name || "N/A"}
                         </span>
                       </div>
@@ -277,7 +281,7 @@ const Profile = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-neutral-400 mb-2">
+                    <label className="block text-sm font-medium text-(--text-secondary) mb-2">
                       Email Address
                     </label>
                     {isEditing ? (
@@ -286,12 +290,12 @@ const Profile = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-indigo-500/50"
+                        className="w-full px-4 py-2 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) focus:outline-none focus:border-indigo-500/50 transition-colors"
                       />
                     ) : (
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+                      <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-(--bg-secondary) border border-(--border-color) transition-colors">
                         <Mail className="h-4 w-4 text-neutral-400" />
-                        <span className="text-white">
+                        <span className="text-(--text-primary)">
                           {user?.email || "N/A"}
                         </span>
                       </div>
@@ -299,12 +303,12 @@ const Profile = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-neutral-400 mb-2">
+                    <label className="block text-sm font-medium text-(--text-secondary) mb-2">
                       Member Since
                     </label>
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-(--bg-secondary) border border-(--border-color) transition-colors">
                       <Calendar className="h-4 w-4 text-neutral-400" />
-                      <span className="text-white">
+                      <span className="text-(--text-primary)">
                         {user?.createdAt
                           ? new Date(user.createdAt).toLocaleDateString()
                           : "N/A"}
@@ -317,14 +321,14 @@ const Profile = () => {
                   <div className="flex gap-3">
                     <button
                       onClick={handleSave}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/30 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-100 dark:bg-indigo-500/20 border border-indigo-300 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-500/30 transition-colors"
                     >
                       <Save className="h-4 w-4" />
                       Save Changes
                     </button>
                     <button
                       onClick={handleCancel}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-neutral-400 hover:bg-white/10 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-secondary) hover:bg-(--bg-primary) transition-colors"
                     >
                       <X className="h-4 w-4" />
                       Cancel
@@ -348,7 +352,7 @@ const Profile = () => {
                 }`}
               >
                 <div className="text-3xl font-bold mb-2">{stat.value}</div>
-                <div className="text-sm text-neutral-400">{stat.label}</div>
+                <div className="text-sm opacity-80">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -360,25 +364,27 @@ const Profile = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
+              className="rounded-xl border border-(--border-color) bg-(--bg-secondary) p-6 backdrop-blur-sm transition-colors duration-300"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 rounded-lg bg-green-500/20 border border-green-500/30">
-                  <Shield className="h-5 w-5 text-green-400" />
+                  <Shield className="h-5 w-5 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">Security</h3>
+                <h3 className="text-lg font-semibold text-(--text-primary)">
+                  Security
+                </h3>
               </div>
               <div className="space-y-3">
                 <button
                   onClick={() => setIsPasswordModalOpen(true)}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-primary) transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <Lock className="h-4 w-4 text-neutral-400" />
                     <span>Change Password</span>
                   </div>
                 </button>
-                <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors">
+                <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-primary) transition-colors">
                   <div className="flex items-center gap-2">
                     <Shield className="h-4 w-4 text-neutral-400" />
                     <span>Two-Factor Auth</span>
@@ -393,19 +399,21 @@ const Profile = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
+              className="rounded-xl border border-(--border-color) bg-(--bg-secondary) p-6 backdrop-blur-sm transition-colors duration-300"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 rounded-lg bg-purple-500/20 border border-purple-500/30">
-                  <Bell className="h-5 w-5 text-purple-400" />
+                  <Bell className="h-5 w-5 text-purple-600 dark:text-purple-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-(--text-primary)">
                   Notifications
                 </h3>
               </div>
               <div className="space-y-3">
-                <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-white/5 border border-white/10">
-                  <span className="text-white">Email Notifications</span>
+                <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) transition-colors">
+                  <span className="text-(--text-primary)">
+                    Email Notifications
+                  </span>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -415,11 +423,13 @@ const Profile = () => {
                         handleToggleNotification("emailNotifications")
                       }
                     />
-                    <div className="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500/50"></div>
+                    <div className="w-11 h-6 bg-neutral-300 dark:bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-neutral-600 peer-checked:after:bg-white after:shadow-md after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500/50 dark:after:bg-white"></div>
                   </label>
                 </div>
-                <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-white/5 border border-white/10">
-                  <span className="text-white">Task Reminders</span>
+                <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) transition-colors">
+                  <span className="text-(--text-primary)">
+                    Task Reminders
+                  </span>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -429,7 +439,7 @@ const Profile = () => {
                         handleToggleNotification("webNotifications")
                       }
                     />
-                    <div className="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500/50"></div>
+                    <div className="w-11 h-6 bg-neutral-300 dark:bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-neutral-600 peer-checked:after:bg-white after:shadow-md after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500/50 dark:after:bg-white"></div>
                   </label>
                 </div>
               </div>

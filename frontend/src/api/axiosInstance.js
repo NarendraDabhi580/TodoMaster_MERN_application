@@ -40,11 +40,14 @@ const processQueue = (error, token = null) => {
 // Request interceptor to show loading
 axiosInstance.interceptors.request.use(
   (config) => {
-    // Skip loading for auth verification and refresh endpoints
+    // Skip loading for auth verification (GET /auth/me) and refresh endpoints
+    // But allow loading for profile updates (PUT /auth/me)
     if (
-      !config.url?.includes("/auth/me") &&
-      !config.url?.includes("/auth/refresh")
+      (config.url?.includes("/auth/me") && config.method === "get") ||
+      config.url?.includes("/auth/refresh")
     ) {
+      // Do not show loading
+    } else {
       loadingEventBus.dispatch(SHOW_LOADING);
     }
     return config;
@@ -65,9 +68,10 @@ axiosInstance.interceptors.response.use(
     loadingEventBus.dispatch(HIDE_LOADING);
     const originalRequest = error.config;
 
-    // Skip interceptor for auth verification and refresh endpoints
+    // Skip interceptor for auth verification (GET only) and refresh endpoints
     if (
-      originalRequest.url?.includes("/auth/me") ||
+      (originalRequest.url?.includes("/auth/me") &&
+        originalRequest.method === "get") ||
       originalRequest.url?.includes("/auth/refresh")
     ) {
       return Promise.reject(error);

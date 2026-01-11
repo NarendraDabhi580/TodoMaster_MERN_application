@@ -5,7 +5,9 @@ import {
   ListTodo,
   LogIn,
   LogOut,
+  Moon,
   Star,
+  Sun,
   User,
   UserPlus,
 } from "lucide-react";
@@ -13,11 +15,13 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import ConfirmDialog from "./ConfirmDialog";
 import { useAuth } from "../hooks/useAuth";
+import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   // Get current path
@@ -41,42 +45,42 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="border-b border-white/10 bg-black/20 backdrop-blur-md w-full z-50">
+    <nav className="border-b border-(--border-color) bg-(--bg-secondary)/80 backdrop-blur-md w-full z-50 transition-colors duration-300">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600">
             <ListTodo className="h-5 w-5 text-white" />
           </div>
-          <span className="text-lg font-bold tracking-tight text-white">
+          <span className="text-lg font-bold tracking-tight text-(--text-primary)">
             TaskMaster
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-(--text-secondary)">
           <Link
             to="/tasks"
-            className="flex items-center gap-2 hover:text-white transition-colors"
+            className="flex items-center gap-2 hover:text-(--text-primary) transition-colors"
           >
             <ListTodo className="h-4 w-4" />
             Tasks
           </Link>
           <Link
             to="/priorities"
-            className="flex items-center gap-2 hover:text-white transition-colors"
+            className="flex items-center gap-2 hover:text-(--text-primary) transition-colors"
           >
             <Star className="h-4 w-4" />
             Priorities
           </Link>
           <Link
             to="/analytics"
-            className="flex items-center gap-2 hover:text-white transition-colors"
+            className="flex items-center gap-2 hover:text-(--text-primary) transition-colors"
           >
             <BarChart2 className="h-4 w-4" />
             Analytics
           </Link>
           <Link
             to="/about"
-            className="flex items-center gap-2 hover:text-white transition-colors"
+            className="flex items-center gap-2 hover:text-(--text-primary) transition-colors"
           >
             <Info className="h-4 w-4" />
             About
@@ -84,19 +88,33 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-(--bg-primary) transition-colors group"
+            title={
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
+          >
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5 text-(--text-secondary) group-hover:text-(--text-primary) transition-colors" />
+            ) : (
+              <Moon className="h-5 w-5 text-(--text-secondary) group-hover:text-(--text-primary) transition-colors" />
+            )}
+          </button>
+
           {isAuthenticated ? (
             // Show Profile and Logout button when authenticated
             <>
               <Link
                 to="/profile"
-                className="text-sm font-medium text-neutral-300 hover:text-white transition-colors flex items-center gap-1"
+                className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1"
               >
                 <User className="w-4 h-4" />
                 Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-neutral-300 hover:text-white transition-colors flex items-center gap-1 group"
+                className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1 group"
               >
                 <LogOut className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 Logout
@@ -108,7 +126,7 @@ const Navbar = () => {
               {currentPath !== "/login" && (
                 <Link
                   to="/login"
-                  className="text-sm font-medium text-neutral-300 hover:text-white transition-colors flex items-center gap-1 group"
+                  className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1 group"
                 >
                   <LogIn className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   Log in
@@ -117,7 +135,7 @@ const Navbar = () => {
               {currentPath !== "/register" && (
                 <Link
                   to="/register"
-                  className="text-sm font-medium text-neutral-300 hover:text-white transition-colors flex items-center gap-1 group"
+                  className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1 group"
                 >
                   <UserPlus className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   Register

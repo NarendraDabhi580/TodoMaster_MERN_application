@@ -15,24 +15,24 @@ const PriorityGrid = ({
       color: "red",
       gradient: "from-red-500/20 to-red-600/20",
       border: "border-red-500/30",
-      text: "text-red-300",
-      iconBg: "bg-red-500/20",
+      text: "text-red-600 dark:text-red-400",
+      iconBg: "bg-(--bg-secondary) border border-red-200 dark:border-red-500/30",
     },
     Medium: {
       icon: Minus,
       color: "yellow",
       gradient: "from-yellow-500/20 to-yellow-600/20",
       border: "border-yellow-500/30",
-      text: "text-yellow-300",
-      iconBg: "bg-yellow-500/20",
+      text: "text-yellow-700 dark:text-yellow-400",
+      iconBg: "bg-(--bg-secondary) border border-yellow-200 dark:border-yellow-500/30",
     },
     Low: {
       icon: TrendingDown,
       color: "green",
       gradient: "from-green-500/20 to-green-600/20",
       border: "border-green-500/30",
-      text: "text-green-300",
-      iconBg: "bg-green-500/20",
+      text: "text-green-600 dark:text-green-400",
+      iconBg: "bg-(--bg-secondary) border border-green-200 dark:border-green-500/30",
     },
   };
 
@@ -52,12 +52,12 @@ const PriorityGrid = ({
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col items-center gap-4 text-center"
         >
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/5 border border-white/10">
-            <AlertCircle className="h-10 w-10 text-neutral-500" />
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-(--bg-secondary) border border-(--border-color)">
+            <AlertCircle className="h-10 w-10 text-(--text-secondary)" />
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-white">No tasks found</h3>
-            <p className="mt-2 text-sm text-neutral-400">
+            <h3 className="text-xl font-semibold text-(--text-primary)">No tasks found</h3>
+            <p className="mt-2 text-sm text-(--text-secondary)">
               {selectedPriority === "All"
                 ? "Create your first task to get started"
                 : `No ${selectedPriority.toLowerCase()} priority tasks found`}
@@ -96,12 +96,12 @@ const PriorityGrid = ({
                   <h2 className={`text-lg font-semibold ${config.text}`}>
                     {priority} Priority
                   </h2>
-                  <p className="text-sm text-neutral-500">
+                  <p className="text-sm text-(--text-secondary)">
                     {tasks.length} {tasks.length === 1 ? "task" : "tasks"}
                   </p>
                 </div>
                 <div
-                  className={`h-1 flex-1 rounded-full bg-gradient-to-r ${config.gradient}`}
+                  className={`h-1 flex-1 rounded-full bg-(--border-color)`}
                 ></div>
               </div>
 
@@ -124,8 +124,8 @@ const PriorityGrid = ({
                   </AnimatePresence>
                 </motion.div>
               ) : (
-                <div className="flex items-center justify-center rounded-xl border border-dashed border-white/10 bg-white/5 p-8">
-                  <p className="text-sm text-neutral-500">
+                <div className="flex items-center justify-center rounded-xl border border-dashed border-(--border-color) bg-(--bg-secondary) p-8">
+                  <p className="text-sm text-(--text-secondary)">
                     No {priority.toLowerCase()} priority tasks
                   </p>
                 </div>

@@ -42,31 +42,31 @@ const RecentActivity = ({ tasks }) => {
     switch (status) {
       case "Completed":
         return {
-          bg: "bg-green-500/10",
-          border: "border-green-500/30",
-          text: "text-green-400",
-          iconBg: "bg-green-500/20",
+          bg: "bg-(--bg-secondary)",
+          border: "border-(--border-color)",
+          text: "text-green-600 dark:text-green-600 dark:text-green-400",
+          iconBg: "bg-green-100 dark:bg-green-500/20",
         };
       case "In Progress":
         return {
-          bg: "bg-blue-500/10",
-          border: "border-blue-500/30",
-          text: "text-blue-400",
-          iconBg: "bg-blue-500/20",
+          bg: "bg-(--bg-secondary)",
+          border: "border-(--border-color)",
+          text: "text-blue-600 dark:text-blue-400",
+          iconBg: "bg-blue-100 dark:bg-blue-500/20",
         };
       case "Pending":
         return {
-          bg: "bg-orange-500/10",
-          border: "border-orange-500/30",
-          text: "text-orange-400",
-          iconBg: "bg-orange-500/20",
+          bg: "bg-(--bg-secondary)",
+          border: "border-(--border-color)",
+          text: "text-orange-600 dark:text-orange-400",
+          iconBg: "bg-orange-100 dark:bg-orange-500/20",
         };
       default:
         return {
-          bg: "bg-neutral-500/10",
-          border: "border-neutral-500/30",
-          text: "text-neutral-400",
-          iconBg: "bg-neutral-500/20",
+          bg: "bg-(--bg-secondary)",
+          border: "border-(--border-color)",
+          text: "text-(--text-secondary)",
+          iconBg: "bg-neutral-100 dark:bg-neutral-500/20",
         };
     }
   };
@@ -74,13 +74,13 @@ const RecentActivity = ({ tasks }) => {
   const getPriorityColor = (priority) => {
     switch (priority) {
       case "High":
-        return "text-red-400";
+        return "text-red-600 dark:text-red-400";
       case "Medium":
-        return "text-yellow-400";
+        return "text-yellow-700 dark:text-yellow-400";
       case "Low":
-        return "text-green-400";
+        return "text-green-600 dark:text-green-400";
       default:
-        return "text-neutral-400";
+        return "text-(--text-secondary)";
     }
   };
 
@@ -89,24 +89,24 @@ const RecentActivity = ({ tasks }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
+      className="rounded-xl border border-(--border-color) bg-(--bg-secondary) p-6 backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/20 border border-purple-500/30">
-            <TrendingUp className="h-5 w-5 text-purple-400" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-500/20 border border-purple-300 dark:border-purple-500/30">
+            <TrendingUp className="h-5 w-5 text-purple-600 dark:text-purple-400" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-white">
+            <h3 className="text-lg font-semibold text-(--text-primary)">
               Recent Activity
             </h3>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-(--text-secondary)">
               Your most important tasks at a glance
             </p>
           </div>
         </div>
-        <div className="text-sm text-neutral-500">
+        <div className="text-sm text-(--text-secondary)">
           Showing {Math.min(recentTasks.length, 8)} of {tasks.length} tasks
         </div>
       </div>
@@ -137,7 +137,7 @@ const RecentActivity = ({ tasks }) => {
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <h4 className="text-sm font-semibold text-white line-clamp-1">
+                    <h4 className="text-sm font-semibold text-(--text-primary) line-clamp-1">
                       {task.title}
                     </h4>
                     <span
@@ -146,17 +146,17 @@ const RecentActivity = ({ tasks }) => {
                       {task.priority}
                     </span>
                   </div>
-                  <p className="text-xs text-neutral-400 line-clamp-1 mb-2">
+                  <p className="text-xs text-(--text-secondary) line-clamp-1 mb-2">
                     {task.description}
                   </p>
-                  <div className="flex items-center gap-4 text-xs text-neutral-500">
+                  <div className="flex items-center gap-4 text-xs text-(--text-secondary)">
                     <div className="flex items-center gap-1">
                       <Calendar className="h-3 w-3" />
                       <span>{task.dueDate}</span>
                     </div>
                     {task.tags && task.tags.length > 0 && (
                       <div className="flex items-center gap-1">
-                        <span className="text-neutral-600">•</span>
+                        <span className="text-(--text-secondary)">•</span>
                         <span className="line-clamp-1">
                           {task.tags.slice(0, 2).join(", ")}
                           {task.tags.length > 2 && ` +${task.tags.length - 2}`}
@@ -178,11 +178,11 @@ const RecentActivity = ({ tasks }) => {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-12">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/5 border border-white/10 mb-4">
-            <ListTodo className="h-8 w-8 text-neutral-500" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-(--bg-secondary) border border-(--border-color) mb-4">
+            <ListTodo className="h-8 w-8 text-(--text-secondary)" />
           </div>
-          <p className="text-sm text-neutral-500">No tasks available</p>
-          <p className="text-xs text-neutral-600 mt-1">
+          <p className="text-sm text-(--text-secondary)">No tasks available</p>
+          <p className="text-xs text-(--text-secondary) mt-1">
             Create some tasks to see your activity
           </p>
         </div>

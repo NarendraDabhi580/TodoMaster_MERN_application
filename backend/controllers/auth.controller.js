@@ -234,9 +234,16 @@ const updateUser = async (req, res) => {
     const { name, email, emailNotifications, webNotifications } = req.body;
     const userId = req.user.id;
 
-    if (!name && !email && !req.file) {
+    if (
+      !name &&
+      !email &&
+      !req.file &&
+      emailNotifications === undefined &&
+      webNotifications === undefined
+    ) {
       return res.status(400).json({
-        message: "Please provide name, email, or profile picture to update",
+        message:
+          "Please provide at least one field to update (name, email, profile picture, or notification settings)",
       });
     }
 

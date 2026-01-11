@@ -36,31 +36,31 @@ const NewPriorityModal = ({
             transition={{ type: "spring", duration: 0.5 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="w-full max-w-2xl bg-neutral-900 border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="w-full max-w-2xl bg-(--bg-secondary) border border-(--border-color) rounded-2xl shadow-2xl overflow-hidden">
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-gradient-to-r from-indigo-600/20 to-purple-600/20">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-(--border-color) bg-gradient-to-r from-indigo-600/20 to-purple-600/20">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600">
                     {isEditMode ? (
-                      <Edit className="h-5 w-5 text-white" />
+                      <Edit className="h-5 w-5 text-(--text-primary)" />
                     ) : (
-                      <TrendingUp className="h-5 w-5 text-white" />
+                      <TrendingUp className="h-5 w-5 text-(--text-primary)" />
                     )}
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-white">
+                    <h2 className="text-xl font-bold text-(--text-primary)">
                       {isEditMode
                         ? "Edit Priority Task"
                         : "Create Priority Task"}
                     </h2>
-                    <p className="text-xs text-neutral-400">
+                    <p className="text-xs text-(--text-secondary)">
                       Set task priority and details
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={onClose}
-                  className="text-neutral-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
+                  className="text-(--text-secondary) hover:text-(--text-primary) transition-colors p-2 hover:bg-(--bg-primary) rounded-lg"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -75,7 +75,7 @@ const NewPriorityModal = ({
                 >
                   {/* Priority Selection - Featured */}
                   <div className="p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
-                    <label className="block text-sm font-medium text-white mb-3">
+                    <label className="block text-sm font-medium text-(--text-primary) mb-3">
                       Priority Level <span className="text-red-500">*</span>
                     </label>
                     <div className="grid grid-cols-3 gap-3">
@@ -97,7 +97,7 @@ const NewPriorityModal = ({
                             className={`px-4 py-3 rounded-lg border-2 font-semibold text-sm transition-all ${
                               isSelected
                                 ? `bg-gradient-to-r ${colors[priority]} scale-105`
-                                : "border-white/10 bg-white/5 text-neutral-400 hover:bg-white/10"
+                                : "border-(--border-color) bg-(--bg-secondary) text-(--text-secondary) hover:bg-(--bg-primary)"
                             }`}
                           >
                             {priority}
@@ -109,7 +109,7 @@ const NewPriorityModal = ({
 
                   {/* Title */}
                   <div>
-                    <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    <label className="block text-sm font-medium text-(--text-primary) mb-2">
                       Task Title <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -119,14 +119,14 @@ const NewPriorityModal = ({
                         onTaskChange({ ...newTask, title: e.target.value })
                       }
                       placeholder="Enter task title..."
-                      className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
+                      className="w-full px-4 py-2.5 bg-(--bg-secondary) border border-(--border-color) rounded-lg text-(--text-primary) placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
                       required
                     />
                   </div>
 
                   {/* Description */}
                   <div>
-                    <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    <label className="block text-sm font-medium text-(--text-primary) mb-2">
                       Description <span className="text-red-500">*</span>
                     </label>
                     <textarea
@@ -139,7 +139,7 @@ const NewPriorityModal = ({
                       }
                       placeholder="Describe your task..."
                       rows={4}
-                      className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all resize-none"
+                      className="w-full px-4 py-2.5 bg-(--bg-secondary) border border-(--border-color) rounded-lg text-(--text-primary) placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all resize-none"
                       required
                     />
                   </div>
@@ -148,7 +148,7 @@ const NewPriorityModal = ({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Status */}
                     <div>
-                      <label className="block text-sm font-medium text-neutral-300 mb-2">
+                      <label className="block text-sm font-medium text-(--text-primary) mb-2">
                         Status <span className="text-red-500">*</span>
                       </label>
                       <select
@@ -156,16 +156,16 @@ const NewPriorityModal = ({
                         onChange={(e) =>
                           onTaskChange({ ...newTask, status: e.target.value })
                         }
-                        className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all cursor-pointer"
+                        className="w-full px-4 py-2.5 bg-(--bg-secondary) border border-(--border-color) rounded-lg text-(--text-primary) focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all cursor-pointer"
                         required
                       >
-                        <option value="Pending" className="bg-neutral-900">
+                        <option value="Pending" className="bg-(--bg-secondary)">
                           Pending
                         </option>
-                        <option value="In Progress" className="bg-neutral-900">
+                        <option value="In Progress" className="bg-(--bg-secondary)">
                           In Progress
                         </option>
-                        <option value="Completed" className="bg-neutral-900">
+                        <option value="Completed" className="bg-(--bg-secondary)">
                           Completed
                         </option>
                       </select>
@@ -173,7 +173,7 @@ const NewPriorityModal = ({
 
                     {/* Due Date */}
                     <div>
-                      <label className="block text-sm font-medium text-neutral-300 mb-2">
+                      <label className="block text-sm font-medium text-(--text-primary) mb-2">
                         Due Date <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -188,7 +188,7 @@ const NewPriorityModal = ({
                             })
                           }
                           placeholder="e.g., Today, Tomorrow..."
-                          className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 bg-(--bg-secondary) border border-(--border-color) rounded-lg text-(--text-primary) placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
                           required
                         />
                       </div>
@@ -197,7 +197,7 @@ const NewPriorityModal = ({
 
                   {/* Tags */}
                   <div>
-                    <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    <label className="block text-sm font-medium text-(--text-primary) mb-2">
                       Tags <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -207,7 +207,7 @@ const NewPriorityModal = ({
                         onTaskChange({ ...newTask, tags: e.target.value })
                       }
                       placeholder="e.g., Urgent, Important, Work (comma-separated)"
-                      className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
+                      className="w-full px-4 py-2.5 bg-(--bg-secondary) border border-(--border-color) rounded-lg text-(--text-primary) placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
                       required
                     />
                     <p className="mt-1.5 text-xs text-neutral-500">
@@ -218,17 +218,17 @@ const NewPriorityModal = ({
               </div>
 
               {/* Modal Footer */}
-              <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-white/10 bg-black/20">
+              <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-(--border-color) bg-black/20">
                 <button
                   onClick={onClose}
-                  className="px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium text-white transition-colors"
+                  className="px-5 py-2.5 bg-(--bg-secondary) hover:bg-(--bg-primary) border border-(--border-color) rounded-lg text-sm font-medium text-(--text-primary) transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   form="priority-task-form"
-                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg text-sm font-medium text-white transition-all shadow-lg shadow-indigo-500/20"
+                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg text-sm font-medium text-(--text-primary) transition-all shadow-lg shadow-indigo-500/20"
                 >
                   {isEditMode ? "Update Task" : "Create Task"}
                 </button>

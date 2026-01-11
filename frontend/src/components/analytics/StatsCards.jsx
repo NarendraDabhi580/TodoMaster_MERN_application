@@ -77,14 +77,14 @@ const StatsCards = ({ stats }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className={`relative overflow-hidden rounded-xl border ${card.border} bg-gradient-to-br ${card.gradient} p-5 backdrop-blur-sm transition-all hover:scale-105`}
+            className={`relative overflow-hidden rounded-xl border ${card.border} bg-(--bg-secondary) p-5 backdrop-blur-sm transition-all hover:scale-105 hover:shadow-lg`}
           >
             <div className="flex items-start justify-between">
               <div className="flex flex-col gap-2">
-                <p className="text-sm font-medium text-neutral-400">
+                <p className="text-sm font-medium text-(--text-secondary)">
                   {card.title}
                 </p>
-                <p className="text-3xl font-bold text-white">{card.value}</p>
+                <p className="text-3xl font-bold text-(--text-primary)">{card.value}</p>
               </div>
               <div
                 className={`flex h-10 w-10 items-center justify-center rounded-lg ${card.iconBg}`}
@@ -94,7 +94,7 @@ const StatsCards = ({ stats }) => {
             </div>
 
             {/* Animated background effect */}
-            <div className="absolute -right-4 -bottom-4 h-24 w-24 rounded-full bg-white/5 blur-2xl"></div>
+            <div className="absolute -right-4 -bottom-4 h-24 w-24 rounded-full bg-(--bg-secondary) blur-2xl"></div>
           </motion.div>
         );
       })}

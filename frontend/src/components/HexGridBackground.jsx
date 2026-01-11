@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 /* ================= CONFIG ================= */
 const HEX_SIZE = 40; // small hexes
@@ -9,7 +10,7 @@ const HEX_HEIGHT = HEX_SIZE * 0.866;
 const GAP = 6;
 
 /* ================= HEX CELL ================= */
-const Hex = ({ mouseX, mouseY }) => {
+const Hex = ({ mouseX, mouseY, isDark }) => {
   const ref = useRef(null);
   const center = useRef({ x: 0, y: 0 });
 
@@ -31,15 +32,19 @@ const Hex = ({ mouseX, mouseY }) => {
   /* Fade + color spread */
   const opacity = useTransform(distance, [0, 100, 300], [1, 0.5, 0.15]);
 
-  const background = useTransform(
-    distance,
-    [0, 150, 400],
-    [
-      "rgba(99,102,241,0.9)", // indigo-500 near cursor
-      "rgba(168,85,247,0.45)", // purple-500 mid
-      "rgba(30,27,75,0.15)", // dark indigo far
-    ]
-  );
+  const colorRange = isDark
+    ? [
+        "rgba(99,102,241,0.9)", // indigo-500 near cursor
+        "rgba(168,85,247,0.45)", // purple-500 mid
+        "rgba(30,27,75,0.15)", // dark indigo far
+      ]
+    : [
+        "rgba(99,102,241,0.9)", // indigo-500 near cursor
+        "rgba(168,85,247,0.45)", // purple-500 mid
+        "rgba(162, 148, 249, 0.15)", // user primary light purple far
+      ];
+
+  const background = useTransform(distance, [0, 150, 400], colorRange);
 
   return (
     <motion.div
@@ -60,10 +65,12 @@ const Hex = ({ mouseX, mouseY }) => {
 Hex.propTypes = {
   mouseX: PropTypes.object.isRequired,
   mouseY: PropTypes.object.isRequired,
+  isDark: PropTypes.bool.isRequired,
 };
 
 const HexGridBackground = () => {
   const location = useLocation();
+  const { theme } = useTheme();
   const mouseX = useMotionValue(window.innerWidth / 2);
   const mouseY = useMotionValue(window.innerHeight / 2);
 
@@ -72,13 +79,13 @@ const HexGridBackground = () => {
   const mouseYSpring = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    // If on tasks, priorities, analytics, or about page, move "cursor" far away and don't track
-    if (
-      location.pathname === "/tasks" ||
-      location.pathname === "/priorities" ||
-      location.pathname === "/analytics" ||
-      location.pathname === "/about"
-    ) {
+    // Only enable cursor effect for these landing/auth pages
+    // All other internal pages (Tasks, Profile, 404, etc.) will have static background
+    const enableEffectPaths = ["/", "/login", "/register", "/forgot-password"];
+    const isResetPassword = location.pathname.startsWith("/reset-password");
+
+    // If NOT in allow-list, disable cursor effect
+    if (!enableEffectPaths.includes(location.pathname) && !isResetPassword) {
       mouseX.set(-1000);
       mouseY.set(-1000);
       return;
@@ -122,7 +129,11 @@ const HexGridBackground = () => {
           style={{ left: cell.x, top: cell.y }}
           className="absolute"
         >
-          <Hex mouseX={mouseXSpring} mouseY={mouseYSpring} />
+          <Hex
+            mouseX={mouseXSpring}
+            mouseY={mouseYSpring}
+            isDark={theme === "dark"}
+          />
         </motion.div>
       ))}
     </div>

@@ -8,6 +8,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import GlobalLoader from "./components/GlobalLoader";
 
 import NotificationManager from "./components/NotificationManager";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   const { toasts } = useToasterStore();
@@ -22,26 +23,28 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <NotificationManager />
-        <GlobalLoader />
-        <div className="relative h-screen w-full overflow-hidden bg-neutral-950 text-white selection:bg-indigo-500/30">
-          <Toaster
-            position="bottom-left"
-            reverseOrder={false}
-            toastOptions={{
-              style: {
-                background: "#333",
-                color: "#fff",
-              },
-            }}
-          />
-          <HexGridBackground />
-          <div className="relative z-10 flex flex-col h-full w-full">
-            <AppRoute />
+      <ThemeProvider>
+        <AuthProvider>
+          <NotificationManager />
+          <GlobalLoader />
+          <div className="relative h-screen w-full overflow-hidden bg-(--bg-primary) text-(--text-primary) transition-colors duration-300 selection:bg-indigo-500/30">
+            <Toaster
+              position="bottom-left"
+              reverseOrder={false}
+              toastOptions={{
+                style: {
+                  background: "#333",
+                  color: "#fff",
+                },
+              }}
+            />
+            <HexGridBackground />
+            <div className="relative z-10 flex flex-col h-full w-full">
+              <AppRoute />
+            </div>
           </div>
-        </div>
-      </AuthProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

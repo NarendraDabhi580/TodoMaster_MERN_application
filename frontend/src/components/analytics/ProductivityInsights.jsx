@@ -140,7 +140,7 @@ const ProductivityInsights = ({ stats, tasks }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-6 backdrop-blur-sm"
+      className="rounded-xl border border-(--border-color) bg-gradient-to-br from-white/5 to-white/[0.02] p-6 backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
@@ -148,10 +148,10 @@ const ProductivityInsights = ({ stats, tasks }) => {
           <Lightbulb className="h-5 w-5 text-purple-400" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-white">
+          <h3 className="text-lg font-semibold text-(--text-primary)">
             Productivity Insights
           </h3>
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-(--text-secondary)">
             AI-powered recommendations for better task management
           </p>
         </div>
@@ -178,10 +178,10 @@ const ProductivityInsights = ({ stats, tasks }) => {
                   <Icon className={`h-5 w-5 ${colors.iconColor}`} />
                 </div>
                 <div className="flex-1">
-                  <h4 className="text-sm font-semibold text-white mb-1">
+                  <h4 className="text-sm font-semibold text-(--text-primary) mb-1">
                     {insight.title}
                   </h4>
-                  <p className="text-sm text-neutral-400">{insight.message}</p>
+                  <p className="text-sm text-(--text-secondary)">{insight.message}</p>
                 </div>
               </div>
             </motion.div>
