@@ -4,6 +4,7 @@ const connectDb = require("./config/db");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth.routes");
 const todoRoutes = require("./routes/todo.routes");
+const path = require("path");
 const cors = require("cors");
 
 const app = express();
@@ -34,6 +35,18 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/todo", todoRoutes);
 app.use("/uploads", express.static("uploads"));
+
+/* ================= FRONTEND SERVE (AFTER APIs) ================= */
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, "../frontend/dist");
+
+  app.use(express.static(frontendPath));
+
+  // Catch-all (MUST BE LAST)
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
