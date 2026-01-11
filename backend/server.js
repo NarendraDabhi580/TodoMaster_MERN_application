@@ -10,7 +10,12 @@ const cors = require("cors");
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:5173", process.env.FRONTEND_URL].filter(Boolean), // Filter out undefined if env var not set
+    origin: [
+      "http://localhost:5173", // Local development
+      "http://localhost:3000", // Local production test
+      process.env.FRONTEND_URL, // Primary frontend URL (Netlify)
+      process.env.CLIENT_URL, // Alternative frontend URL
+    ].filter(Boolean), // Filter out undefined if env var not set
     credentials: true,
   })
 );
