@@ -65,7 +65,7 @@ const checkReminders = async () => {
     });
 
     // Target times: 12:01 AM ("00:01"), 12:01 PM ("12:01"), 8:00 PM ("20:00")
-    // You can add more or modify these.
+    // Reverted per user request (frontend has its own logic)
     const TARGET_TIMES = ["00:01", "12:01", "20:00"];
 
     if (!TARGET_TIMES.includes(currentHHMM)) {

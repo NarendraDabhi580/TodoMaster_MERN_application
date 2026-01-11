@@ -15,6 +15,20 @@ const NotificationManager = () => {
 
     const checkReminders = async () => {
       try {
+        const now = new Date();
+        const currentHHMM = now.toLocaleTimeString("en-US", {
+          hour12: false,
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        // Target times: 12:01 AM ("00:01"), 01:00 PM ("13:00"), 08:00 PM ("20:00")
+        const TARGET_TIMES = ["00:01", "13:00", "20:00"];
+
+        if (!TARGET_TIMES.includes(currentHHMM)) {
+          return;
+        }
+
         const response = await axiosInstance.get("/todo/todos");
         const tasks = response.data.todo || [];
 
@@ -30,8 +44,8 @@ const NotificationManager = () => {
           let isDue = false;
 
           if (task.dueDate) {
-            const now = new Date();
-            now.setHours(0, 0, 0, 0);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
 
             // Handle YYYY-MM-DD manually
             if (
@@ -40,14 +54,14 @@ const NotificationManager = () => {
             ) {
               const [y, m, d] = task.dueDate.split("-").map(Number);
               const taskDate = new Date(y, m - 1, d, 0, 0, 0, 0);
-              if (taskDate.getTime() === now.getTime()) {
+              if (taskDate.getTime() === today.getTime()) {
                 isDue = true;
               }
             } else {
               const parsedDate = new Date(task.dueDate);
               if (!isNaN(parsedDate.getTime())) {
                 parsedDate.setHours(0, 0, 0, 0);
-                if (parsedDate.getTime() === now.getTime()) {
+                if (parsedDate.getTime() === today.getTime()) {
                   isDue = true;
                 }
               }
@@ -55,28 +69,22 @@ const NotificationManager = () => {
           }
 
           if (isDue) {
-            // Check if we already notified this session to avoid spam loop
-            // Use localStorage to persistent across reloads, map taskId -> lastNotifiedTime
-            const lastNotified = localStorage.getItem(`notified_${task._id}`);
-            const now = Date.now();
-            const COOLDOWN = 6 * 60 * 60 * 1000; // 6 hours cooldown
+            // Unique key for this specific time slot
+            const storageKey = `notified_${task._id}_${currentHHMM}`;
+            const alreadyNotified = localStorage.getItem(storageKey);
 
-            // Override cooldown if testing exact time trigger has just "unlocked"
-            // Actually, if user sets new test time, we might want to ignore cooldown to allow re-test.
-            // But for simplicity, we keep cooldown unless we clear localStorage.
-            // To make testing easier, let's log if prevented by cooldown.
-
-            if (lastNotified && now - parseInt(lastNotified, 10) <= COOLDOWN) {
-              console.log(
-                `[Frontend] Skipping notification for ${task.title} due to cooldown.`
-              );
-              // Return here to avoid sending notification
+            if (alreadyNotified) {
               return;
             }
 
-            // Send notification (if strict checks passed or bypassed)
+            // Send notification
             sendNotification(task);
-            localStorage.setItem(`notified_${task._id}`, now.toString());
+
+            // Mark as notified for this specific time slot
+            localStorage.setItem(storageKey, "true");
+
+            // Optional: Clean up old keys (e.g., previous slots) to keep storage clean
+            // Not strictly necessary for functionality but good for hygiene
           }
         });
       } catch (error) {
