@@ -18,7 +18,7 @@ const Dashboard = () => {
           >
             <a
               href="#"
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-300 transition-colors hover:bg-indigo-500/20"
+              className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-300 transition-colors hover:bg-indigo-500/20 cursor-pointer"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
@@ -41,14 +41,14 @@ const Dashboard = () => {
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link
                 to="/register"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-(--accent-color) px-8 py-3.5 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95 shadow-lg shadow-(--accent-color)/25"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-(--accent-color) px-8 py-3.5 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95 shadow-lg shadow-(--accent-color)/25 cursor-pointer"
               >
                 <Sparkles className="h-4 w-4 transition-transform group-hover:scale-110" />
                 Start Planning
               </Link>
               <Link
                 to="/about"
-                className="group inline-flex items-center justify-center gap-2 rounded-full border border-(--border-color) bg-(--bg-secondary) px-8 py-3.5 text-sm font-semibold text-(--text-primary) transition-all hover:bg-(--bg-primary) active:scale-95"
+                className="group inline-flex items-center justify-center gap-2 rounded-full border border-(--border-color) bg-(--bg-secondary) px-8 py-3.5 text-sm font-semibold text-(--text-primary) transition-all hover:bg-(--bg-primary) active:scale-95 cursor-pointer"
               >
                 Features
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

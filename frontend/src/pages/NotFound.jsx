@@ -19,17 +19,17 @@ const NotFound = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="text-[150px] font-black leading-none text-transparent bg-clip-text bg-linear-to-b from-white/20 to-transparent"
+            className="text-[150px] font-black leading-none text-transparent bg-clip-text bg-linear-to-b from-indigo-500/40 to-purple-600/40"
           >
             404
           </motion.div>
         </div>
 
         {/* Text Content */}
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+        <h1 className="text-3xl md:text-4xl font-bold text-(--text-primary) mb-4">
           Page Not Found
         </h1>
-        <p className="text-neutral-400 text-lg mb-8">
+        <p className="text-(--text-secondary) text-lg mb-8">
           The page you are looking for might have been removed, had its name
           changed, or is temporarily unavailable.
         </p>
@@ -38,7 +38,7 @@ const NotFound = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => navigate(-1)}
-            className="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all active:scale-95"
+            className="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-primary) transition-all active:scale-95"
           >
             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
             Go Back
@@ -46,7 +46,7 @@ const NotFound = () => {
 
           <Link
             to="/"
-            className="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/20 hover:scale-[1.02] hover:shadow-indigo-500/30 transition-all active:scale-95"
+            className="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20 transition-all active:scale-95"
           >
             <Home className="w-4 h-4" />
             Back to Home

@@ -28,9 +28,9 @@ const TaskGrid = ({
           onClick={onNewTaskClick}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/20 bg-white/5 p-6 text-neutral-400 transition-colors hover:border-indigo-500/50 hover:bg-indigo-500/5 hover:text-indigo-400 min-h-[200px]"
+          className="flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-indigo-500/30 bg-indigo-500/5 p-6 text-indigo-500/60 transition-all hover:border-indigo-500 hover:bg-indigo-500/10 hover:text-indigo-600 min-h-[200px] cursor-pointer"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/5">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-500/10 text-indigo-500">
             <Plus className="h-6 w-6" />
           </div>
           <span className="font-medium">Create New Task</span>

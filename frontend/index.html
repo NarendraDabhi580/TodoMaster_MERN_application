@@ -5,6 +5,21 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TaskMaster</title>
+
+    <!-- Blocking script to prevent theme flicker on page load -->
+    <script>
+      (function () {
+        // Get theme from localStorage or system preference
+        const savedTheme = localStorage.getItem("theme");
+        const systemPrefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = savedTheme || (systemPrefersDark ? "dark" : "dark");
+
+        // Apply theme class immediately to prevent flicker
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

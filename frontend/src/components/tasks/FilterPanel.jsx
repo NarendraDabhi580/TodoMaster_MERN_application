@@ -10,7 +10,7 @@ const FilterPanel = ({ isOpen, filter, onFilterChange }) => {
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="overflow-hidden border-b border-white/5 bg-black/10 backdrop-blur-sm"
+          className="overflow-hidden border-b border-(--border-color) bg-(--bg-secondary) backdrop-blur-sm"
         >
           <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
             <div>
@@ -21,11 +21,11 @@ const FilterPanel = ({ isOpen, filter, onFilterChange }) => {
                 {["In Progress", "Pending", "Completed"].map((status) => (
                   <label
                     key={status}
-                    className="flex items-center gap-2 text-sm text-(--text-primary) hover:text-(--text-primary) cursor-pointer bg-(--bg-primary) px-3 py-1.5 rounded-lg border border-white/5 transition-colors hover:bg-(--bg-primary)"
+                    className="flex items-center gap-2 text-sm text-(--text-primary) cursor-pointer bg-(--bg-primary) px-3 py-1.5 rounded-lg border border-(--border-color) transition-colors hover:bg-(--bg-secondary)"
                   >
                     <input
                       type="checkbox"
-                      className="rounded border-neutral-700 bg-(--bg-secondary) text-indigo-500 focus:ring-indigo-500/50"
+                      className="rounded border-(--border-color) bg-(--bg-secondary) text-indigo-500 focus:ring-indigo-500/50"
                       name={status}
                       checked={!!filter?.[status]}
                       onChange={(event) => onFilterChange(event, status)}
@@ -43,13 +43,13 @@ const FilterPanel = ({ isOpen, filter, onFilterChange }) => {
                 {["High", "Medium", "Low"].map((priority) => (
                   <label
                     key={priority}
-                    className="flex items-center gap-2 text-sm text-(--text-primary) hover:text-(--text-primary) cursor-pointer bg-(--bg-primary) px-3 py-1.5 rounded-lg border border-white/5 transition-colors hover:bg-(--bg-primary)"
+                    className="flex items-center gap-2 text-sm text-(--text-primary) cursor-pointer bg-(--bg-primary) px-3 py-1.5 rounded-lg border border-(--border-color) transition-colors hover:bg-(--bg-secondary)"
                   >
                     <input
                       type="checkbox"
                       name={priority}
                       checked={!!filter?.[priority]}
-                      className="rounded border-neutral-700 bg-(--bg-secondary) text-indigo-500 focus:ring-indigo-500/50"
+                      className="rounded border-(--border-color) bg-(--bg-secondary) text-indigo-500 focus:ring-indigo-500/50"
                       onChange={(event) => onFilterChange(event, priority)}
                     />
                     {priority}

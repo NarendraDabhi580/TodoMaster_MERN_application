@@ -62,7 +62,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
               </h3>
               <button
                 onClick={onClose}
-                className="p-1 rounded-lg text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-primary) transition-colors"
+                className="p-1 rounded-lg text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-primary) transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -119,7 +119,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="mr-3 px-4 py-2 rounded-lg text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-primary) transition-colors"
+                  className="mr-3 px-4 py-2 rounded-lg text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-primary) transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>

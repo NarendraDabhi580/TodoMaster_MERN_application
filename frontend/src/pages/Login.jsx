@@ -125,7 +125,7 @@ const Login = () => {
               {/* Action Button */}
               <button
                 type="submit"
-                className="group relative flex w-full items-center justify-center gap-2 rounded-lg bg-linear-to-br from-indigo-500 to-purple-600 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:scale-[1.02] hover:shadow-indigo-500/30 active:scale-[0.98]"
+                className="group relative flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98] cursor-pointer"
                 onClick={handleLogin}
               >
                 Log in

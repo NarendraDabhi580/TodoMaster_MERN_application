@@ -14,10 +14,14 @@ const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
       <div className="rounded-lg border border-(--border-color) bg-(--bg-secondary)/95 p-3 shadow-xl backdrop-blur-sm">
-        <p className="text-sm font-semibold text-(--text-primary)">{payload[0].name}</p>
+        <p className="text-sm font-semibold text-(--text-primary)">
+          {payload[0].name}
+        </p>
         <p className="text-sm text-(--text-secondary)">
           Tasks:{" "}
-          <span className="font-semibold text-(--text-primary)">{payload[0].value}</span>
+          <span className="font-semibold text-(--text-primary)">
+            {payload[0].value}
+          </span>
         </p>
       </div>
     );
@@ -63,7 +67,7 @@ const TaskDistributionChart = ({ data }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="rounded-xl border border-(--border-color) bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
+      className="rounded-xl border border-(--border-color) bg-linear-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">

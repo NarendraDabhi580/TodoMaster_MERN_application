@@ -178,11 +178,11 @@ const Profile = () => {
   return (
     <div className="flex-1 flex flex-col h-full w-full overflow-hidden">
       {/* Header */}
-      <div className="relative z-10 flex flex-col gap-6 px-8 py-8 border-b border-light-action/20 dark:border-white/5 bg-(--bg-secondary)/80 backdrop-blur-xl transition-colors duration-300">
+      <div className="relative z-10 flex flex-col gap-6 px-8 py-8 border-b border-(--border-color) bg-(--bg-secondary)/80 backdrop-blur-xl transition-colors duration-300">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30">
-              <User className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+              <User className="h-6 w-6 text-indigo-500" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-(--text-primary)">
@@ -196,7 +196,7 @@ const Profile = () => {
           {!isEditing && (
             <button
               onClick={handleEdit}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-100 dark:bg-indigo-500/20 border border-indigo-300 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-500/30 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-500 hover:bg-indigo-500/20 transition-colors cursor-pointer"
             >
               <Edit2 className="h-4 w-4" />
               Edit Profile
@@ -239,7 +239,7 @@ const Profile = () => {
                   {isEditing && (
                     <button
                       onClick={handleCameraClick}
-                      className="absolute bottom-0 right-0 p-2 rounded-full bg-indigo-100 dark:bg-indigo-500/20 border border-indigo-300 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-500/30 transition-colors"
+                      className="absolute bottom-0 right-0 p-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-500 hover:bg-indigo-500/20 transition-colors cursor-pointer"
                     >
                       <Camera className="h-4 w-4" />
                     </button>
@@ -249,9 +249,7 @@ const Profile = () => {
                   <h2 className="text-xl font-bold text-(--text-primary)">
                     {user?.name || "User"}
                   </h2>
-                  <p className="text-sm text-(--text-secondary)">
-                    Member
-                  </p>
+                  <p className="text-sm text-(--text-secondary)">Member</p>
                 </div>
               </div>
 
@@ -321,14 +319,14 @@ const Profile = () => {
                   <div className="flex gap-3">
                     <button
                       onClick={handleSave}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-100 dark:bg-indigo-500/20 border border-indigo-300 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-500/30 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-500 hover:bg-indigo-500/20 transition-colors cursor-pointer"
                     >
                       <Save className="h-4 w-4" />
                       Save Changes
                     </button>
                     <button
                       onClick={handleCancel}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-secondary) hover:bg-(--bg-primary) transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-secondary) hover:bg-(--bg-primary) transition-colors cursor-pointer"
                     >
                       <X className="h-4 w-4" />
                       Cancel
@@ -368,7 +366,7 @@ const Profile = () => {
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 rounded-lg bg-green-500/20 border border-green-500/30">
-                  <Shield className="h-5 w-5 text-green-600 dark:text-green-400" />
+                  <Shield className="h-5 w-5 text-green-500" />
                 </div>
                 <h3 className="text-lg font-semibold text-(--text-primary)">
                   Security
@@ -377,14 +375,14 @@ const Profile = () => {
               <div className="space-y-3">
                 <button
                   onClick={() => setIsPasswordModalOpen(true)}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-primary) transition-colors"
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-primary) transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
                     <Lock className="h-4 w-4 text-neutral-400" />
                     <span>Change Password</span>
                   </div>
                 </button>
-                <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-primary) transition-colors">
+                <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-primary) transition-colors cursor-pointer">
                   <div className="flex items-center gap-2">
                     <Shield className="h-4 w-4 text-neutral-400" />
                     <span>Two-Factor Auth</span>
@@ -403,7 +401,7 @@ const Profile = () => {
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 rounded-lg bg-purple-500/20 border border-purple-500/30">
-                  <Bell className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                  <Bell className="h-5 w-5 text-purple-500" />
                 </div>
                 <h3 className="text-lg font-semibold text-(--text-primary)">
                   Notifications
@@ -423,13 +421,11 @@ const Profile = () => {
                         handleToggleNotification("emailNotifications")
                       }
                     />
-                    <div className="w-11 h-6 bg-neutral-300 dark:bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-neutral-600 peer-checked:after:bg-white after:shadow-md after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500/50 dark:after:bg-white"></div>
+                    <div className="w-11 h-6 bg-(--border-color) peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-(--text-secondary) peer-checked:after:bg-white after:shadow-md after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                   </label>
                 </div>
                 <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-(--bg-secondary) border border-(--border-color) transition-colors">
-                  <span className="text-(--text-primary)">
-                    Task Reminders
-                  </span>
+                  <span className="text-(--text-primary)">Task Reminders</span>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -439,7 +435,7 @@ const Profile = () => {
                         handleToggleNotification("webNotifications")
                       }
                     />
-                    <div className="w-11 h-6 bg-neutral-300 dark:bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-neutral-600 peer-checked:after:bg-white after:shadow-md after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500/50 dark:after:bg-white"></div>
+                    <div className="w-11 h-6 bg-(--border-color) peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-(--text-secondary) peer-checked:after:bg-white after:shadow-md after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                   </label>
                 </div>
               </div>

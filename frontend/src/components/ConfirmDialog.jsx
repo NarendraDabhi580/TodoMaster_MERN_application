@@ -13,7 +13,7 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm, title, message }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9998] bg-black/60"
+            className="fixed inset-0 z-9998 bg-black/60"
             onClick={onClose}
           />
 
@@ -23,15 +23,15 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm, title, message }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9, pointerEvents: "none" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+            className="fixed inset-0 z-9999 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-full max-w-md bg-(--bg-secondary) border border-(--border-color) rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden">
               {/* Header */}
               <div className="px-6 py-5 border-b border-(--border-color) bg-(--bg-primary)">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/30">
-                    <LogOut className="h-6 w-6 text-(--text-primary)" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/30">
+                    <LogOut className="h-6 w-6 text-white" />
                   </div>
                   <div>
                     <h2 className="text-xl font-bold text-(--text-primary)">
@@ -55,7 +55,7 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm, title, message }) => {
               <div className="flex justify-end gap-3 px-6 py-4 border-t border-(--border-color) bg-(--bg-primary)">
                 <button
                   onClick={onClose}
-                  className="px-6 py-2.5 bg-(--bg-primary) hover:bg-(--bg-secondary) border border-(--border-color) rounded-lg text-sm font-medium text-(--text-primary) transition active:scale-95"
+                  className="px-6 py-2.5 bg-(--bg-primary) hover:bg-(--bg-secondary) border border-(--border-color) rounded-lg text-sm font-medium text-(--text-primary) transition active:scale-95 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -64,7 +64,7 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm, title, message }) => {
                     onConfirm();
                     onClose();
                   }}
-                  className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg text-sm font-medium text-(--text-primary) shadow-lg shadow-indigo-500/30 transition active:scale-95"
+                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-sm font-medium text-white shadow-lg shadow-indigo-500/30 transition active:scale-95 cursor-pointer"
                 >
                   Confirm
                 </button>

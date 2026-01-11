@@ -15,13 +15,13 @@ const PrioritiesHeader = ({
   const getPriorityColor = (priority) => {
     switch (priority) {
       case "High":
-        return "from-red-500/20 to-red-600/20 border-red-500/30 text-red-600 dark:text-red-300";
+        return "from-red-500/20 to-red-600/20 border-red-500/30 text-red-500";
       case "Medium":
-        return "from-yellow-500/20 to-yellow-600/20 border-yellow-500/30 text-yellow-600 dark:text-yellow-300";
+        return "from-yellow-500/20 to-yellow-600/20 border-yellow-500/30 text-yellow-600";
       case "Low":
-        return "from-green-500/20 to-green-600/20 border-green-500/30 text-green-600 dark:text-green-300";
+        return "from-green-500/20 to-green-600/20 border-green-500/30 text-green-500";
       default:
-        return "from-indigo-500/20 to-indigo-600/20 border-indigo-500/30 text-indigo-600 dark:text-indigo-300";
+        return "from-indigo-500/20 to-indigo-600/20 border-indigo-500/30 text-indigo-500";
     }
   };
 
@@ -47,27 +47,21 @@ const PrioritiesHeader = ({
         <div className="hidden md:flex items-center gap-3">
           <div className="flex items-center gap-2 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-4 py-2 transition-colors">
             <div className="h-2 w-2 rounded-full bg-red-500"></div>
-            <span className="text-sm text-(--text-secondary)">
-              High:
-            </span>
+            <span className="text-sm text-(--text-secondary)">High:</span>
             <span className="text-sm font-semibold text-(--text-primary)">
               {stats.High}
             </span>
           </div>
           <div className="flex items-center gap-2 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-4 py-2 transition-colors">
             <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
-            <span className="text-sm text-(--text-secondary)">
-              Medium:
-            </span>
+            <span className="text-sm text-(--text-secondary)">Medium:</span>
             <span className="text-sm font-semibold text-(--text-primary)">
               {stats.Medium}
             </span>
           </div>
           <div className="flex items-center gap-2 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-4 py-2 transition-colors">
             <div className="h-2 w-2 rounded-full bg-green-500"></div>
-            <span className="text-sm text-(--text-secondary)">
-              Low:
-            </span>
+            <span className="text-sm text-(--text-secondary)">Low:</span>
             <span className="text-sm font-semibold text-(--text-primary)">
               {stats.Low}
             </span>
@@ -79,13 +73,13 @@ const PrioritiesHeader = ({
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         {/* Search Bar */}
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--text-secondary) dark:text-neutral-500" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--text-secondary)" />
           <input
             type="text"
             placeholder="Search tasks..."
             value={searchQuery}
             onChange={onSearchChange}
-            className="w-full rounded-lg border border-(--border-color) bg-(--bg-secondary) py-2.5 pl-10 pr-4 text-sm text-(--text-primary) placeholder-neutral-500 outline-none transition-all focus:border-indigo-500/50 focus:bg-white dark:focus:bg-white/10"
+            className="w-full rounded-lg border border-(--border-color) bg-(--bg-secondary) py-2.5 pl-10 pr-4 text-sm text-(--text-primary) placeholder-neutral-500 outline-none transition-all focus:border-indigo-500/50 focus:bg-(--bg-primary)"
           />
         </div>
 
@@ -97,7 +91,7 @@ const PrioritiesHeader = ({
               onClick={() => onPriorityChange(priority)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
                 selectedPriority === priority
                   ? `bg-linear-to-r ${getPriorityColor(priority)} border`
                   : "border border-(--border-color) bg-(--bg-secondary) text-(--text-secondary) hover:bg-(--bg-primary)"
@@ -113,7 +107,7 @@ const PrioritiesHeader = ({
           onClick={onNewTaskClick}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 rounded-lg bg-linear-to-r from-indigo-500 to-purple-600 px-4 py-2.5 text-sm font-semibold text-(--text-primary) shadow-lg shadow-indigo-500/25 transition-all hover:shadow-indigo-500/40"
+          className="flex items-center gap-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           New Task

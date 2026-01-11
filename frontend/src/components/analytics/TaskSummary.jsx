@@ -174,7 +174,7 @@ const TaskSummary = ({ stats, tasks }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="rounded-xl border border-(--border-color) bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
+      className="rounded-xl border border-(--border-color) bg-linear-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
@@ -182,7 +182,9 @@ const TaskSummary = ({ stats, tasks }) => {
           <Target className="h-5 w-5 text-indigo-400" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-(--text-primary)">Task Summary</h3>
+          <h3 className="text-lg font-semibold text-(--text-primary)">
+            Task Summary
+          </h3>
           <p className="text-sm text-(--text-secondary)">
             Quick overview of your task metrics
           </p>
@@ -201,7 +203,7 @@ const TaskSummary = ({ stats, tasks }) => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 + index * 0.05 }}
-              className={`rounded-lg border ${colors.border} bg-gradient-to-br ${colors.gradient} p-4 backdrop-blur-sm`}
+              className={`rounded-lg border ${colors.border} bg-linear-to-br ${colors.gradient} p-4 backdrop-blur-sm`}
             >
               <div className="flex items-start gap-3">
                 <div

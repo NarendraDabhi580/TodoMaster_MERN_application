@@ -36,15 +36,15 @@ const NewPriorityModal = ({
             transition={{ type: "spring", duration: 0.5 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="w-full max-w-2xl bg-(--bg-secondary) border border-(--border-color) rounded-2xl shadow-2xl overflow-hidden">
+            <div className="w-full max-w-2xl bg-(--bg-secondary) border border-neutral-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden">
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-(--border-color) bg-gradient-to-r from-indigo-600/20 to-purple-600/20">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-(--border-color) bg-linear-to-r from-indigo-600/20 to-purple-600/20">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br from-indigo-600 to-purple-600">
                     {isEditMode ? (
-                      <Edit className="h-5 w-5 text-(--text-primary)" />
+                      <Edit className="h-5 w-5 text-white" />
                     ) : (
-                      <TrendingUp className="h-5 w-5 text-(--text-primary)" />
+                      <TrendingUp className="h-5 w-5 text-white" />
                     )}
                   </div>
                   <div>
@@ -60,7 +60,7 @@ const NewPriorityModal = ({
                 </div>
                 <button
                   onClick={onClose}
-                  className="text-(--text-secondary) hover:text-(--text-primary) transition-colors p-2 hover:bg-(--bg-primary) rounded-lg"
+                  className="text-(--text-secondary) hover:text-(--text-primary) transition-colors p-2 hover:bg-(--bg-primary) rounded-lg cursor-pointer"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -74,7 +74,7 @@ const NewPriorityModal = ({
                   className="space-y-5"
                 >
                   {/* Priority Selection - Featured */}
-                  <div className="p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
+                  <div className="p-4 rounded-xl bg-linear-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
                     <label className="block text-sm font-medium text-(--text-primary) mb-3">
                       Priority Level <span className="text-red-500">*</span>
                     </label>
@@ -82,10 +82,10 @@ const NewPriorityModal = ({
                       {["High", "Medium", "Low"].map((priority) => {
                         const isSelected = newTask.priority === priority;
                         const colors = {
-                          High: "from-red-500/20 to-red-600/20 border-red-500/50 text-red-300",
+                          High: "from-red-500/20 to-red-600/20 border-red-500/50 text-red-500",
                           Medium:
-                            "from-yellow-500/20 to-yellow-600/20 border-yellow-500/50 text-yellow-300",
-                          Low: "from-green-500/20 to-green-600/20 border-green-500/50 text-green-300",
+                            "from-yellow-500/20 to-yellow-600/20 border-yellow-500/50 text-yellow-600",
+                          Low: "from-green-500/20 to-green-600/20 border-green-500/50 text-green-500",
                         };
                         return (
                           <button
@@ -94,9 +94,9 @@ const NewPriorityModal = ({
                             onClick={() =>
                               onTaskChange({ ...newTask, priority })
                             }
-                            className={`px-4 py-3 rounded-lg border-2 font-semibold text-sm transition-all ${
+                            className={`px-4 py-3 rounded-lg border-2 font-semibold text-sm transition-all cursor-pointer ${
                               isSelected
-                                ? `bg-gradient-to-r ${colors[priority]} scale-105`
+                                ? `bg-linear-to-r ${colors[priority]} scale-105`
                                 : "border-(--border-color) bg-(--bg-secondary) text-(--text-secondary) hover:bg-(--bg-primary)"
                             }`}
                           >
@@ -162,10 +162,16 @@ const NewPriorityModal = ({
                         <option value="Pending" className="bg-(--bg-secondary)">
                           Pending
                         </option>
-                        <option value="In Progress" className="bg-(--bg-secondary)">
+                        <option
+                          value="In Progress"
+                          className="bg-(--bg-secondary)"
+                        >
                           In Progress
                         </option>
-                        <option value="Completed" className="bg-(--bg-secondary)">
+                        <option
+                          value="Completed"
+                          className="bg-(--bg-secondary)"
+                        >
                           Completed
                         </option>
                       </select>
@@ -218,17 +224,17 @@ const NewPriorityModal = ({
               </div>
 
               {/* Modal Footer */}
-              <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-(--border-color) bg-black/20">
+              <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-(--border-color) bg-(--bg-primary)">
                 <button
                   onClick={onClose}
-                  className="px-5 py-2.5 bg-(--bg-secondary) hover:bg-(--bg-primary) border border-(--border-color) rounded-lg text-sm font-medium text-(--text-primary) transition-colors"
+                  className="px-5 py-2.5 bg-(--bg-secondary) hover:bg-(--bg-primary) border border-(--border-color) rounded-lg text-sm font-medium text-(--text-primary) transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   form="priority-task-form"
-                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg text-sm font-medium text-(--text-primary) transition-all shadow-lg shadow-indigo-500/20"
+                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-sm font-medium text-white transition-all shadow-lg shadow-indigo-500/20 cursor-pointer"
                 >
                   {isEditMode ? "Update Task" : "Create Task"}
                 </button>

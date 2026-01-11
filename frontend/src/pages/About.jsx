@@ -115,7 +115,9 @@ const About = () => {
             <Sparkles className="h-6 w-6 text-indigo-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-(--text-primary)">About TaskMaster</h1>
+            <h1 className="text-2xl font-bold text-(--text-primary)">
+              About TaskMaster
+            </h1>
             <p className="text-sm text-(--text-secondary)">
               Your productivity companion for modern task management
             </p>
@@ -159,7 +161,9 @@ const About = () => {
                   <div className={`text-3xl font-bold ${colors.text} mb-2`}>
                     {stat.value}
                   </div>
-                  <div className="text-sm text-(--text-secondary)">{stat.label}</div>
+                  <div className="text-sm text-(--text-secondary)">
+                    {stat.label}
+                  </div>
                 </motion.div>
               );
             })}
@@ -211,7 +215,9 @@ const About = () => {
             transition={{ delay: 0.8 }}
             className="rounded-xl border border-(--border-color) bg-(--bg-secondary) p-8 backdrop-blur-sm"
           >
-            <h3 className="text-2xl font-bold text-(--text-primary) mb-6">Built With</h3>
+            <h3 className="text-2xl font-bold text-(--text-primary) mb-6">
+              Built With
+            </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
@@ -224,14 +230,18 @@ const About = () => {
                 <div className="flex items-center justify-center mb-2">
                   <img src={nodejsLogo} alt="Node.js" className="w-12 h-12" />
                 </div>
-                <div className="text-(--text-primary) font-semibold">Node.js</div>
+                <div className="text-(--text-primary) font-semibold">
+                  Node.js
+                </div>
                 <div className="text-xs text-(--text-secondary)">Backend</div>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <img src={mongodbLogo} alt="MongoDB" className="w-12 h-12" />
                 </div>
-                <div className="text-(--text-primary) font-semibold">MongoDB</div>
+                <div className="text-(--text-primary) font-semibold">
+                  MongoDB
+                </div>
                 <div className="text-xs text-(--text-secondary)">Database</div>
               </div>
               <div className="text-center">
@@ -242,7 +252,9 @@ const About = () => {
                     className="w-12 h-12"
                   />
                 </div>
-                <div className="text-(--text-primary) font-semibold">Tailwind</div>
+                <div className="text-(--text-primary) font-semibold">
+                  Tailwind
+                </div>
                 <div className="text-xs text-(--text-secondary)">Styling</div>
               </div>
             </div>
@@ -263,14 +275,14 @@ const About = () => {
                 href="https://github.com/NarendraDabhi580"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-secondary) transition-colors"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-secondary) transition-colors cursor-pointer"
               >
                 <Github className="h-5 w-5" />
                 GitHub
               </a>
               <a
                 href="mailto:nandudabhi580@gmail.com"
-                className="flex items-center gap-2 px-6 py-3 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-secondary) transition-colors"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-secondary) transition-colors cursor-pointer"
               >
                 <Mail className="h-5 w-5" />
                 Email
@@ -279,7 +291,7 @@ const About = () => {
                 href="https://www.linkedin.com/in/narendra-dabhi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-secondary) transition-colors"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-secondary) transition-colors cursor-pointer"
               >
                 <Linkedin className="h-5 w-5" />
                 LinkedIn
@@ -288,7 +300,7 @@ const About = () => {
                 href="https://www.naukri.com/mnjuser/profile?id=&altresid"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-secondary) transition-colors"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg bg-(--bg-primary) border border-(--border-color) text-(--text-primary) hover:bg-(--bg-secondary) transition-colors cursor-pointer"
               >
                 <Briefcase className="h-5 w-5" />
                 Naukri

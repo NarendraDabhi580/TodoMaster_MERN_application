@@ -140,7 +140,7 @@ const ProductivityInsights = ({ stats, tasks }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="rounded-xl border border-(--border-color) bg-gradient-to-br from-white/5 to-white/[0.02] p-6 backdrop-blur-sm"
+      className="rounded-xl border border-(--border-color) bg-linear-to-br from-white/5 to-white/2 p-6 backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
@@ -169,7 +169,7 @@ const ProductivityInsights = ({ stats, tasks }) => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 + index * 0.1 }}
-              className={`rounded-lg border ${colors.border} bg-gradient-to-br ${colors.gradient} p-4 backdrop-blur-sm`}
+              className={`rounded-lg border ${colors.border} bg-linear-to-br ${colors.gradient} p-4 backdrop-blur-sm`}
             >
               <div className="flex items-start gap-3">
                 <div
@@ -181,7 +181,9 @@ const ProductivityInsights = ({ stats, tasks }) => {
                   <h4 className="text-sm font-semibold text-(--text-primary) mb-1">
                     {insight.title}
                   </h4>
-                  <p className="text-sm text-(--text-secondary)">{insight.message}</p>
+                  <p className="text-sm text-(--text-secondary)">
+                    {insight.message}
+                  </p>
                 </div>
               </div>
             </motion.div>

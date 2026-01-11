@@ -15,9 +15,7 @@ const TasksHeader = ({
           <CheckSquare className="h-6 w-6 text-indigo-500" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-(--text-primary)">
-            Tasks
-          </h1>
+          <h1 className="text-2xl font-bold text-(--text-primary)">Tasks</h1>
           <p className="text-sm text-(--text-secondary)">
             Manage your daily tasks and workflow
           </p>
@@ -37,7 +35,7 @@ const TasksHeader = ({
         </div>
         <button
           onClick={onFilterToggle}
-          className={`flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
+          className={`flex items-center justify-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors cursor-pointer ${
             isFilterOpen
               ? "bg-indigo-600 border-indigo-500 text-white"
               : "bg-(--bg-secondary) border-(--border-color) text-(--text-primary) hover:bg-(--bg-primary)"
@@ -48,7 +46,7 @@ const TasksHeader = ({
         </button>
         <button
           onClick={onNewTaskClick}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-sm font-medium text-white transition-colors shadow-lg shadow-indigo-500/20"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-sm font-medium text-white transition-colors shadow-lg shadow-indigo-500/20 cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           New Task

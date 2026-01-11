@@ -54,7 +54,7 @@ const ResetPassword = () => {
                 transition={{ delay: 0.2 }}
                 className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 shadow-[0_0_20px_rgba(99,102,241,0.5)]"
               >
-                <Lock className="h-6 w-6 text-(--text-primary)" />
+                <Lock className="h-6 w-6 text-white" />
               </motion.div>
               <h2 className="text-3xl font-bold tracking-tight text-(--text-primary)">
                 Set New Password
@@ -117,7 +117,7 @@ const ResetPassword = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative flex w-full items-center justify-center gap-2 rounded-lg bg-linear-to-br from-indigo-500 to-purple-600 py-3 text-sm font-semibold text-(--text-primary) shadow-lg shadow-indigo-500/20 transition-all hover:scale-[1.02] hover:shadow-indigo-500/30 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                className="group relative flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isLoading ? "Resetting..." : "Reset Password"}
                 {!isLoading && (

@@ -49,7 +49,7 @@ const TaskCard = ({ task, onEditTask, onDeleteTask, isHighlighted }) => {
         <div className="relative">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-(--text-secondary) hover:text-(--text-primary) transition-colors p-1 hover:bg-(--bg-primary) rounded-lg"
+            className="text-(--text-secondary) hover:text-(--text-primary) transition-colors p-1 hover:bg-(--bg-primary) rounded-lg cursor-pointer"
           >
             <MoreVertical className="h-5 w-5" />
           </button>
@@ -79,7 +79,7 @@ const TaskCard = ({ task, onEditTask, onDeleteTask, isHighlighted }) => {
                         onEditTask(task);
                         setIsMenuOpen(false);
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-(--text-primary) hover:bg-(--bg-primary) hover:text-(--text-primary) transition-colors"
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-(--text-primary) hover:bg-(--bg-primary) hover:text-(--text-primary) transition-colors cursor-pointer"
                     >
                       <Edit className="h-4 w-4" />
                       Edit Task
@@ -94,7 +94,7 @@ const TaskCard = ({ task, onEditTask, onDeleteTask, isHighlighted }) => {
                         onDeleteTask(task._id);
                         setIsMenuOpen(false);
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors cursor-pointer"
                     >
                       <Trash2 className="h-4 w-4" />
                       Delete Task

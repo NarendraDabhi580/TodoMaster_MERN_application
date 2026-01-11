@@ -19,8 +19,8 @@ const AnalyticsHeader = ({
       {/* Title and Actions */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-500/20 to-pink-600/20 border border-purple-500/30">
-            <BarChart3 className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30">
+            <BarChart3 className="h-6 w-6 text-indigo-500" />
           </div>
           <div>
             <h1 className="text-2xl font-bold text-(--text-primary)">
@@ -38,7 +38,7 @@ const AnalyticsHeader = ({
           disabled={isLoading}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-4 py-2.5 text-sm font-medium text-(--text-primary) transition-all hover:bg-(--bg-primary) disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-4 py-2.5 text-sm font-medium text-(--text-primary) transition-all hover:bg-(--bg-primary) disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
           <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
           Refresh
@@ -47,18 +47,16 @@ const AnalyticsHeader = ({
 
       {/* Time Range Filter */}
       <div className="flex items-center gap-3">
-        <Calendar className="h-4 w-4 text-(--text-secondary) dark:text-neutral-500" />
-        <span className="text-sm text-(--text-secondary)">
-          Time Range:
-        </span>
+        <Calendar className="h-4 w-4 text-(--text-secondary)" />
+        <span className="text-sm text-(--text-secondary)">Time Range:</span>
         <div className="flex items-center gap-2">
           {timeRanges.map((range) => (
             <button
               key={range.value}
               onClick={() => onTimeRangeChange(range.value)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
                 timeRange === range.value
-                  ? "bg-linear-to-r from-purple-500/20 to-pink-500/20 border border-purple-200 dark:border-purple-500/50 text-purple-700 dark:text-purple-300"
+                  ? "bg-linear-to-r from-indigo-500/20 to-purple-600/20 border border-indigo-500/30 text-indigo-500"
                   : "border border-(--border-color) bg-(--bg-secondary) text-(--text-secondary) hover:bg-(--bg-primary)"
               }`}
             >

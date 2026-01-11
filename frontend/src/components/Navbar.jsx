@@ -59,28 +59,44 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-(--text-secondary)">
           <Link
             to="/tasks"
-            className="flex items-center gap-2 hover:text-(--text-primary) transition-colors"
+            className={`flex items-center gap-2 transition-colors ${
+              currentPath === "/tasks"
+                ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                : "hover:text-(--text-primary)"
+            }`}
           >
             <ListTodo className="h-4 w-4" />
             Tasks
           </Link>
           <Link
             to="/priorities"
-            className="flex items-center gap-2 hover:text-(--text-primary) transition-colors"
+            className={`flex items-center gap-2 transition-colors ${
+              currentPath === "/priorities"
+                ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                : "hover:text-(--text-primary)"
+            }`}
           >
             <Star className="h-4 w-4" />
             Priorities
           </Link>
           <Link
             to="/analytics"
-            className="flex items-center gap-2 hover:text-(--text-primary) transition-colors"
+            className={`flex items-center gap-2 transition-colors ${
+              currentPath === "/analytics"
+                ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                : "hover:text-(--text-primary)"
+            }`}
           >
             <BarChart2 className="h-4 w-4" />
             Analytics
           </Link>
           <Link
             to="/about"
-            className="flex items-center gap-2 hover:text-(--text-primary) transition-colors"
+            className={`flex items-center gap-2 transition-colors ${
+              currentPath === "/about"
+                ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                : "hover:text-(--text-primary)"
+            }`}
           >
             <Info className="h-4 w-4" />
             About
@@ -89,8 +105,8 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4">
           <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-(--bg-primary) transition-colors group"
+            onClick={(e) => toggleTheme(e)}
+            className="p-2 rounded-full hover:bg-(--bg-primary) transition-colors group cursor-pointer"
             title={
               theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
             }
@@ -107,14 +123,18 @@ const Navbar = () => {
             <>
               <Link
                 to="/profile"
-                className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1"
+                className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                  currentPath === "/profile"
+                    ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                    : "text-(--text-secondary) hover:text-(--text-primary)"
+                }`}
               >
                 <User className="w-4 h-4" />
                 Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1 group"
+                className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1 group cursor-pointer"
               >
                 <LogOut className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 Logout
