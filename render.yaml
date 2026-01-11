@@ -25,8 +25,9 @@ services:
     name: taskmaster-frontend
     env: static
     region: oregon
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
+    rootDirectory: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
     # Removed routes section - Render will use _redirects file from dist/
     headers:
       - path: /*
