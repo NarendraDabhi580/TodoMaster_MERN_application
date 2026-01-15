@@ -5,11 +5,13 @@ import {
   ListTodo,
   LogIn,
   LogOut,
+  Menu,
   Moon,
   Star,
   Sun,
   User,
   UserPlus,
+  X,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -23,9 +25,15 @@ const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Get current path
   const currentPath = location.pathname;
+
+  // Handler to close mobile menu
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -33,6 +41,7 @@ const Navbar = () => {
 
   const performLogout = async () => {
     setShowLogoutConfirm(false); // Close the dialog first
+    setIsMobileMenuOpen(false); // Close mobile menu
 
     try {
       await logout(); // Logout from context handles API call
@@ -104,6 +113,19 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
+          {/* Mobile Menu Toggle Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-full hover:bg-(--bg-primary) transition-colors cursor-pointer"
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6 text-(--text-primary)" />
+            ) : (
+              <Menu className="h-6 w-6 text-(--text-primary)" />
+            )}
+          </button>
+
           <button
             onClick={(e) => toggleTheme(e)}
             className="p-2 rounded-full hover:bg-(--bg-primary) transition-colors group cursor-pointer"
@@ -123,7 +145,7 @@ const Navbar = () => {
             <>
               <Link
                 to="/profile"
-                className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                className={`hidden md:flex text-sm font-medium transition-colors items-center gap-1 ${
                   currentPath === "/profile"
                     ? "text-indigo-600 dark:text-indigo-400 font-semibold"
                     : "text-(--text-secondary) hover:text-(--text-primary)"
@@ -134,7 +156,7 @@ const Navbar = () => {
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1 group cursor-pointer"
+                className="hidden md:flex text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors items-center gap-1 group cursor-pointer"
               >
                 <LogOut className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 Logout
@@ -146,7 +168,7 @@ const Navbar = () => {
               {currentPath !== "/login" && (
                 <Link
                   to="/login"
-                  className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1 group"
+                  className="hidden md:flex text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors items-center gap-1 group"
                 >
                   <LogIn className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   Log in
@@ -155,9 +177,119 @@ const Navbar = () => {
               {currentPath !== "/register" && (
                 <Link
                   to="/register"
-                  className="text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors flex items-center gap-1 group"
+                  className="hidden md:flex text-sm font-medium text-(--text-secondary) hover:text-(--text-primary) transition-colors items-center gap-1 group"
                 >
                   <UserPlus className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  Register
+                </Link>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Menu Panel */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="px-6 py-4 space-y-3 border-t border-(--border-color) bg-(--bg-secondary)">
+          {/* Navigation Links */}
+          <Link
+            to="/tasks"
+            onClick={closeMobileMenu}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              currentPath === "/tasks"
+                ? "bg-indigo-600 text-white font-semibold"
+                : "text-(--text-secondary) hover:bg-(--bg-primary) hover:text-(--text-primary)"
+            }`}
+          >
+            <ListTodo className="h-5 w-5" />
+            Tasks
+          </Link>
+          <Link
+            to="/priorities"
+            onClick={closeMobileMenu}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              currentPath === "/priorities"
+                ? "bg-indigo-600 text-white font-semibold"
+                : "text-(--text-secondary) hover:bg-(--bg-primary) hover:text-(--text-primary)"
+            }`}
+          >
+            <Star className="h-5 w-5" />
+            Priorities
+          </Link>
+          <Link
+            to="/analytics"
+            onClick={closeMobileMenu}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              currentPath === "/analytics"
+                ? "bg-indigo-600 text-white font-semibold"
+                : "text-(--text-secondary) hover:bg-(--bg-primary) hover:text-(--text-primary)"
+            }`}
+          >
+            <BarChart2 className="h-5 w-5" />
+            Analytics
+          </Link>
+          <Link
+            to="/about"
+            onClick={closeMobileMenu}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              currentPath === "/about"
+                ? "bg-indigo-600 text-white font-semibold"
+                : "text-(--text-secondary) hover:bg-(--bg-primary) hover:text-(--text-primary)"
+            }`}
+          >
+            <Info className="h-5 w-5" />
+            About
+          </Link>
+
+          {/* Divider */}
+          <div className="border-t border-(--border-color) my-2"></div>
+
+          {/* Auth Buttons */}
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/profile"
+                onClick={closeMobileMenu}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                  currentPath === "/profile"
+                    ? "bg-indigo-600 text-white font-semibold"
+                    : "text-(--text-secondary) hover:bg-(--bg-primary) hover:text-(--text-primary)"
+                }`}
+              >
+                <User className="h-5 w-5" />
+                Profile
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2 px-4 py-2 rounded-lg text-(--text-secondary) hover:bg-(--bg-primary) hover:text-(--text-primary) transition-colors cursor-pointer"
+              >
+                <LogOut className="h-5 w-5" />
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              {currentPath !== "/login" && (
+                <Link
+                  to="/login"
+                  onClick={closeMobileMenu}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-(--text-secondary) hover:bg-(--bg-primary) hover:text-(--text-primary) transition-colors"
+                >
+                  <LogIn className="h-5 w-5" />
+                  Log in
+                </Link>
+              )}
+              {currentPath !== "/register" && (
+                <Link
+                  to="/register"
+                  onClick={closeMobileMenu}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-(--text-secondary) hover:bg-(--bg-primary) hover:text-(--text-primary) transition-colors"
+                >
+                  <UserPlus className="h-5 w-5" />
                   Register
                 </Link>
               )}
