@@ -137,9 +137,16 @@ const logoutUser = async (req, res) => {
       );
     }
 
-    // Clear both cookies
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    // Cookie options must match the ones used when setting cookies
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    };
+
+    // Clear both cookies with the same options used to set them
+    res.clearCookie("accessToken", cookieOptions);
+    res.clearCookie("refreshToken", cookieOptions);
 
     res.status(200).json({
       message: "User logged out successfully",
