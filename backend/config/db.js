@@ -1,30 +1,22 @@
 const mongoose = require("mongoose");
 
-const connectDb = () => {
-  // Use Local DB for development (default) to preserve local data access
-  // Use Cloud DB (MONGO_URI) only in Production
-  const dbURI =
-    process.env.NODE_ENV === "production"
-      ? process.env.MONGO_URI
-      : "mongodb://localhost:27017/test-prac";
+const connectDb = async () => {
+  const isProduction = process.env.NODE_ENV === "production";
+  const dbURI = isProduction
+    ? process.env.MONGO_URI
+    : "mongodb://localhost:27017/test-prac";
 
-  console.log("-----------------------------------------");
   console.log(
-    `[Database] Connecting to: ${
-      dbURI.includes("localhost")
-        ? "Local MongoDB (test-prac)"
-        : "Cloud MongoDB (Atlas)"
-    }`
+    `Connecting to database... (${isProduction ? "Production" : "Development"})`
   );
-  console.log("-----------------------------------------");
 
-  return mongoose
-    .connect(dbURI)
-    .then(() => console.log("MongoDB Connected"))
-    .catch((err) => {
-      console.log("MongoDB connection failed :", err);
-      process.exit(1);
-    });
+  try {
+    await mongoose.connect(dbURI);
+    console.log("MongoDB connected successfully");
+  } catch (error) {
+    console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
+  }
 };
 
 module.exports = connectDb;

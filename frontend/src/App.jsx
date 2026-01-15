@@ -1,24 +1,26 @@
-import "./App.css";
-import HexGridBackground from "./components/HexGridBackground";
-import AppRoute from "./routes/AppRoute";
-import { Toaster, useToasterStore, toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext.jsx";
-import GlobalLoader from "./components/GlobalLoader";
+import { Toaster, useToasterStore, toast } from "react-hot-toast";
 
+import AppRoute from "./routes/AppRoute";
+import HexGridBackground from "./components/HexGridBackground";
+import GlobalLoader from "./components/GlobalLoader";
 import NotificationManager from "./components/NotificationManager";
+import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
+
+import "./App.css";
+
+const TOAST_LIMIT = 3;
 
 function App() {
   const { toasts } = useToasterStore();
-  const TOAST_LIMIT = 3;
 
   useEffect(() => {
     toasts
-      .filter((t) => t.visible) // Only consider visible toasts
-      .filter((_, i) => i >= TOAST_LIMIT) // Find toasts beyond the limit
-      .forEach((t) => toast.dismiss(t.id)); // Dismiss them
+      .filter((t) => t.visible)
+      .filter((_, i) => i >= TOAST_LIMIT)
+      .forEach((t) => toast.dismiss(t.id));
   }, [toasts]);
 
   return (
@@ -27,6 +29,7 @@ function App() {
         <AuthProvider>
           <NotificationManager />
           <GlobalLoader />
+
           <div className="relative h-screen w-full overflow-hidden bg-(--bg-primary) text-(--text-primary) transition-colors duration-300 selection:bg-indigo-500/30">
             <Toaster
               position="bottom-left"
@@ -38,7 +41,9 @@ function App() {
                 },
               }}
             />
+
             <HexGridBackground />
+
             <div className="relative z-10 flex flex-col h-full w-full">
               <AppRoute />
             </div>

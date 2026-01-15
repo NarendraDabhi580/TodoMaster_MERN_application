@@ -3,29 +3,24 @@ const path = require("path");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Local Storage for Development
 const diskStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => {
     cb(
       null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
     );
   },
 });
 
-// Cloudinary Storage for Production
 const cloudStorage = new CloudinaryStorage({
-  cloudinary: cloudinary,
+  cloudinary,
   params: {
     folder: "user_profiles",
     allowed_formats: ["jpg", "png", "jpeg", "gif"],
@@ -33,36 +28,29 @@ const cloudStorage = new CloudinaryStorage({
   },
 });
 
-// Select storage based on environment
-const storage =
+const isCloudConfigured =
   process.env.CLOUDINARY_CLOUD_NAME &&
   process.env.CLOUDINARY_API_KEY &&
-  process.env.CLOUDINARY_API_SECRET
-    ? cloudStorage
-    : diskStorage;
+  process.env.CLOUDINARY_API_SECRET;
 
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 5000000 }, // 5MB limit
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
-});
+const storage = isCloudConfigured ? cloudStorage : diskStorage;
 
-function checkFileType(file, cb) {
+const fileFilter = (req, file, cb) => {
   const filetypes = /jpeg|jpg|png|gif/;
-
-  // Handle Cloudinary's file object which might differ slightly or check originalname
-  // For CloudinaryStorage, file.mimetype is available.
-
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);
 
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb("Error: Images Only!");
+    cb(new Error("Only images are allowed (jpeg, jpg, png, gif)"));
   }
-}
+};
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter,
+});
 
 module.exports = upload;

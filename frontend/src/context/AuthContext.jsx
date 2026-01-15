@@ -1,24 +1,23 @@
-import { useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { AuthContext } from "./AuthContext";
 import axiosInstance from "../api/axiosInstance";
+
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
-  // Verify authentication on app load
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        const response = await axiosInstance.get("/auth/me");
-        setUser(response.data.user); // Backend returns { message, user }
+        const { data } = await axiosInstance.get("/auth/me");
+        setUser(data.user);
         setIsAuthenticated(true);
       } catch (error) {
-        // Only log error if it's not a 401 (unauthorized)
         if (error.response?.status !== 401) {
-          console.error("Auth verification error:", error);
+          console.error("Auth verification failed:", error.message);
         }
         setIsAuthenticated(false);
         setUser(null);
@@ -31,15 +30,12 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async () => {
-    // Optimistically set authenticated to prevent flash of login page
-    setIsAuthenticated(true);
-
+    setIsAuthenticated(true); // Optimistic update
     try {
-      const response = await axiosInstance.get("/auth/me");
-      setUser(response.data.user);
+      const { data } = await axiosInstance.get("/auth/me");
+      setUser(data.user);
     } catch (error) {
-      console.error("Error fetching user data on login:", error);
-      // If fetching user fails, revert authentication state
+      console.error("Login verification failed:", error);
       setIsAuthenticated(false);
       setUser(null);
     }
@@ -49,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await axiosInstance.post("/auth/logout");
     } catch (error) {
-      console.error("Logout error:", error);
+      console.error("Logout failed:", error);
     } finally {
       setIsAuthenticated(false);
       setUser(null);

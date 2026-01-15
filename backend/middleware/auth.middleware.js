@@ -1,14 +1,12 @@
+const mongoose = require("mongoose");
 const { verifyAccessToken } = require("../utils/tokenUtils");
 const TodoModel = require("../models/Todo");
-const mongoose = require("mongoose");
 
 const authMiddleware = async (req, res, next) => {
-  const token = req.cookies.accessToken ?? "";
+  const token = req.cookies.accessToken;
 
   if (!token) {
-    return res.status(401).json({
-      message: "Unauthorized - Access token not found",
-    });
+    return res.status(401).json({ message: "Authentication required" });
   }
 
   try {
@@ -16,31 +14,22 @@ const authMiddleware = async (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    return res.status(401).json({
-      message: "Unauthorized - Invalid or expired access token",
-    });
+    return res.status(401).json({ message: "Invalid or expired token" });
   }
 };
 
 const validateOwnership = async (req, res, next) => {
-  const requestTodoId = req.params.id;
-  const userId = req.user.id;
+  const { id } = req.params;
+  const { id: userId } = req.user;
 
-  if (!mongoose.isValidObjectId(requestTodoId)) {
-    return res.status(400).json({
-      message: "Invalid Todo ID",
-    });
+  if (!mongoose.isValidObjectId(id)) {
+    return res.status(400).json({ message: "Invalid task ID" });
   }
 
-  const todo = await TodoModel.findOne({
-    _id: requestTodoId,
-    userId: userId,
-  });
+  const todo = await TodoModel.findOne({ _id: id, userId });
 
   if (!todo) {
-    return res.status(403).json({
-      message: "You are not allowed to update this todo",
-    });
+    return res.status(403).json({ message: "Access denied" });
   }
 
   next();

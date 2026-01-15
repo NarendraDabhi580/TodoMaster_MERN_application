@@ -17,7 +17,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import ConfirmDialog from "./ConfirmDialog";
 import { useAuth } from "../hooks/useAuth";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../context/theme-context";
 
 const Navbar = () => {
   const location = useLocation();

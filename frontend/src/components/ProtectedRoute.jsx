@@ -1,5 +1,5 @@
-import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const ProtectedRoute = ({ children }) => {
@@ -7,8 +7,8 @@ const ProtectedRoute = ({ children }) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-white">Loading...</div>
+      <div className="flex justify-center items-center h-screen">
+        <span className="text-white">Loading...</span>
       </div>
     );
   }

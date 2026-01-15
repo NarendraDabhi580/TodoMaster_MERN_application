@@ -1,24 +1,11 @@
 const TodoModel = require("../models/Todo");
 
 const createTodo = async (req, res) => {
-  const { title, description, status, priority, dueDate, tags } =
-    req.body ?? {};
+  const { title, description, status, priority, dueDate, tags } = req.body;
 
-  if (
-    !req.body ||
-    !title ||
-    !description ||
-    !status ||
-    !priority ||
-    !dueDate ||
-    !tags
-  ) {
-    return res.status(400).json({
-      message: "Required value missing",
-    });
+  if (!title || !description || !status || !priority || !dueDate || !tags) {
+    return res.status(400).json({ message: "All fields are required" });
   }
-
-  const userId = req.user.id;
 
   const todo = await TodoModel.create({
     title,
@@ -27,82 +14,58 @@ const createTodo = async (req, res) => {
     priority,
     dueDate,
     tags,
-    userId,
+    userId: req.user.id,
   });
 
-  if (!todo) {
-    return res.status(400).json({
-      message: "Something went wrong todo not created",
-    });
-  }
-
   res.status(201).json({
-    message: "Todo created successfully",
-    todo: todo,
+    message: "Task created",
+    todo,
   });
 };
 
 const getTodos = async (req, res) => {
-  const userId = req.user.id;
+  const todos = await TodoModel.find({ userId: req.user.id });
 
-  const todo = await TodoModel.find({ userId: userId });
-
-  if (!todo) {
-    return res.status(400).json({
-      message: "Something went wrong todo not found",
-    });
-  }
-
-  res.status(200).json({
-    message: "Todo fetched successfully",
-    todo: todo,
+  res.json({
+    message: "Tasks retrieved",
+    todo: todos,
   });
 };
 
 const updateTodo = async (req, res) => {
-  const { title, description, status, priority, dueDate, tags } =
-    req.body ?? {};
-  const todoId = req.params.id;
+  const { title, description, status, priority, dueDate, tags } = req.body;
+  const { id } = req.params;
 
-  if (!req.body) {
-    return res.status(400).json({
-      message: "Required value missing",
-    });
-  }
-
-  if (!todoId) {
-    return res.status(400).json({
-      message: "Todo not found update",
-    });
+  if (!id) {
+    return res.status(400).json({ message: "Task ID required" });
   }
 
   const todo = await TodoModel.findByIdAndUpdate(
-    todoId,
-    {
-      title: title,
-      description: description,
-      status: status,
-      priority: priority,
-      dueDate: dueDate,
-      tags: tags,
-    },
+    id,
+    { title, description, status, priority, dueDate, tags },
     { new: true }
   );
 
-  res.status(200).json({
-    message: "Todo updated successfully",
+  if (!todo) {
+    return res.status(404).json({ message: "Task not found" });
+  }
+
+  res.json({
+    message: "Task updated",
     updateTodo: todo,
   });
 };
 
 const deleteTodo = async (req, res) => {
-  const todoId = req.params.id;
+  const { id } = req.params;
 
-  await TodoModel.findByIdAndDelete(todoId);
+  const todo = await TodoModel.findByIdAndDelete(id);
 
-  res.status(200).json({
-    message: "Todo deleted successfully",
-  });
+  if (!todo) {
+    return res.status(404).json({ message: "Task not found" });
+  }
+
+  res.json({ message: "Task deleted" });
 };
 
 module.exports = { createTodo, getTodos, updateTodo, deleteTodo };

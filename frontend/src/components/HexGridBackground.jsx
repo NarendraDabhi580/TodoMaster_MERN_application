@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../context/theme-context";
 
 /* ================= CONFIG ================= */
 const HEX_SIZE = 40; // small hexes

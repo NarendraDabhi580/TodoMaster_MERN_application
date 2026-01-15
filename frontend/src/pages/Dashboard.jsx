@@ -2,13 +2,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
-/* ================= MAIN ================= */
 const Dashboard = () => {
   return (
     <div className="relative flex-1 flex flex-col h-full w-full overflow-hidden selection:bg-indigo-500/30">
-      {/* Content Layer */}
       <div className="flex flex-col h-full w-full">
-        {/* Hero Section */}
         <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -16,17 +13,14 @@ const Dashboard = () => {
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center max-w-4xl"
           >
-            <a
-              href="#"
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-300 transition-colors hover:bg-indigo-500/20 cursor-pointer"
-            >
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-300 transition-colors hover:bg-indigo-500/20 cursor-pointer">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
               </span>
               New features coming soon
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </div>
 
             <h1 className="mb-6 text-5xl font-extrabold tracking-tight md:text-7xl lg:text-8xl text-(--text-primary)">
               Master your day <br className="hidden sm:block" />

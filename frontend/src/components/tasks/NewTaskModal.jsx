@@ -34,7 +34,7 @@ const NewTaskModal = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-x-0 bottom-0 top-20 z-50 flex items-center justify-center p-4"
           >
             <div className="w-full max-w-2xl bg-(--bg-secondary) border border-neutral-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden">
               {/* Modal Header */}
@@ -60,7 +60,7 @@ const NewTaskModal = ({
               </div>
 
               {/* Modal Body */}
-              <div className="p-6 max-h-[calc(100vh-200px)] overflow-y-auto custom-scrollbar">
+              <div className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
                 <form
                   id="task-form"
                   onSubmit={handleSubmit}

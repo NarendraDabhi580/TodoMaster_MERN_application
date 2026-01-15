@@ -1,15 +1,15 @@
 const express = require("express");
+const router = express.Router();
+const {
+  authMiddleware,
+  validateOwnership,
+} = require("../middleware/auth.middleware");
 const {
   createTodo,
   getTodos,
   updateTodo,
   deleteTodo,
 } = require("../controllers/todo.controller");
-const {
-  authMiddleware,
-  validateOwnership,
-} = require("../middleware/auth.middleware");
-const router = express.Router();
 
 router.post("/todos", authMiddleware, createTodo);
 router.get("/todos", authMiddleware, getTodos);

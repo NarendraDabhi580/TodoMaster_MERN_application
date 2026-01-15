@@ -1,214 +1,139 @@
-const UserModel = require("../models/User");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const UserModel = require("../models/User");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyRefreshToken,
+} = require("../utils/tokenUtils");
+
+const getCookieOptions = (maxAge) => ({
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+  maxAge,
+});
+
+const setAuthCookies = (res, accessToken, refreshToken) => {
+  res.cookie("accessToken", accessToken, getCookieOptions(15 * 60 * 1000));
+  res.cookie(
+    "refreshToken",
+    refreshToken,
+    getCookieOptions(7 * 24 * 60 * 60 * 1000)
+  );
+};
 
 const registerUser = async (req, res) => {
-  const { name, email, password } = req.body ?? {};
+  const { name, email, password } = req.body;
 
-  if (!req.body || !name || !email || !password) {
-    return res.status(400).json({
-      message: "Required value missing",
-    });
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
   }
 
-  const isUserAlreadyExist = await UserModel.findOne({ email });
-
-  if (isUserAlreadyExist) {
-    return res.status(400).json({
-      message: "User already exist please login",
-    });
+  const existingUser = await UserModel.findOne({ email });
+  if (existingUser) {
+    return res.status(400).json({ message: "Email already registered" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-
   const user = await UserModel.create({
     name,
     email,
     password: hashedPassword,
   });
 
-  if (!user) {
-    return res.status(400).json({
-      message: "Something went wrong user not register",
-    });
-  }
-
-  // Generate both access and refresh tokens
-  const {
-    generateAccessToken,
-    generateRefreshToken,
-  } = require("../utils/tokenUtils");
-
   const accessToken = generateAccessToken(user._id);
   const refreshToken = generateRefreshToken(user._id);
 
-  // Store refresh token in database
   user.refreshToken = refreshToken;
   await user.save();
 
-  // Set tokens as HTTP-only cookies
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    maxAge: 15 * 60 * 1000, // 15 minutes
-  });
-
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
+  setAuthCookies(res, accessToken, refreshToken);
 
   res.status(201).json({
-    message: "User created successfully",
-    newUser: { name: user.name, email: user.email },
+    message: "Account created successfully",
+    user: { name: user.name, email: user.email },
   });
 };
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body ?? {};
+  const { email, password } = req.body;
 
-  if (!req.body || !email || !password) {
-    return res.status(400).json({
-      message: "Required value missing",
-    });
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password required" });
   }
 
   const user = await UserModel.findOne({ email });
-
   if (!user) {
-    return res.status(400).json({
-      message: "Invalid email or password",
-    });
+    return res.status(400).json({ message: "Invalid credentials" });
   }
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordValid) {
-    return res.status(400).json({
-      message: "Invalid email or password",
-    });
+  const isValidPassword = await bcrypt.compare(password, user.password);
+  if (!isValidPassword) {
+    return res.status(400).json({ message: "Invalid credentials" });
   }
-
-  // Generate both access and refresh tokens
-  const {
-    generateAccessToken,
-    generateRefreshToken,
-  } = require("../utils/tokenUtils");
 
   const accessToken = generateAccessToken(user._id);
   const refreshToken = generateRefreshToken(user._id);
 
-  // Store refresh token in database
   user.refreshToken = refreshToken;
   await user.save();
 
-  // Set tokens as HTTP-only cookies
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    maxAge: 15 * 60 * 1000, // 15 minutes
-  });
+  setAuthCookies(res, accessToken, refreshToken);
 
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
-
-  res.status(200).json({ message: "User logged in successfully" });
+  res.json({ message: "Login successful" });
 };
 
 const logoutUser = async (req, res) => {
   try {
-    const refreshToken = req.cookies?.refreshToken;
+    const { refreshToken } = req.cookies;
 
     if (refreshToken) {
-      // Clear refresh token from database
       await UserModel.findOneAndUpdate(
         { refreshToken },
         { refreshToken: null }
       );
     }
 
-    // Cookie options must match the ones used when setting cookies
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    };
-
-    // Clear both cookies with the same options used to set them
+    const cookieOptions = getCookieOptions();
     res.clearCookie("accessToken", cookieOptions);
     res.clearCookie("refreshToken", cookieOptions);
 
-    res.status(200).json({
-      message: "User logged out successfully",
-    });
+    res.json({ message: "Logged out successfully" });
   } catch (error) {
-    res.status(500).json({
-      message: "Error during logout",
-      error: error.message,
-    });
+    res.status(500).json({ message: "Logout failed", error: error.message });
   }
 };
 
 const refreshToken = async (req, res) => {
   try {
-    const refreshToken = req.cookies?.refreshToken;
+    const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
-      return res.status(401).json({
-        message: "Refresh token not found",
-      });
+      return res.status(401).json({ message: "No refresh token provided" });
     }
 
-    // Verify refresh token
-    const { verifyRefreshToken } = require("../utils/tokenUtils");
     let decoded;
     try {
       decoded = verifyRefreshToken(refreshToken);
     } catch (error) {
-      return res.status(401).json({
-        message: "Invalid or expired refresh token",
-      });
+      return res.status(401).json({ message: "Invalid refresh token" });
     }
 
-    // Check if refresh token exists in database
     const user = await UserModel.findOne({ _id: decoded.id, refreshToken });
-
     if (!user) {
-      return res.status(401).json({
-        message: "Invalid refresh token",
-      });
+      return res.status(401).json({ message: "Invalid refresh token" });
     }
 
-    // Generate new access token
-    const { generateAccessToken } = require("../utils/tokenUtils");
     const newAccessToken = generateAccessToken(user._id);
+    res.cookie("accessToken", newAccessToken, getCookieOptions(15 * 60 * 1000));
 
-    // Set new access token cookie
-    res.cookie("accessToken", newAccessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 15 * 60 * 1000, // 15 minutes
-    });
-
-    res.status(200).json({
-      message: "Access token refreshed successfully",
-    });
+    res.json({ message: "Token refreshed" });
   } catch (error) {
-    res.status(500).json({
-      message: "Error refreshing token",
-      error: error.message,
-    });
+    res
+      .status(500)
+      .json({ message: "Token refresh failed", error: error.message });
   }
 };
 
@@ -219,20 +144,14 @@ const getUser = async (req, res) => {
     );
 
     if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({
-      message: "User fetched successfully",
-      user: user,
-    });
+    res.json({ message: "User retrieved", user });
   } catch (error) {
-    res.status(500).json({
-      message: "Error fetching user",
-      error: error.message,
-    });
+    res
+      .status(500)
+      .json({ message: "Failed to get user", error: error.message });
   }
 };
 
@@ -248,22 +167,16 @@ const updateUser = async (req, res) => {
       emailNotifications === undefined &&
       webNotifications === undefined
     ) {
-      return res.status(400).json({
-        message:
-          "Please provide at least one field to update (name, email, profile picture, or notification settings)",
-      });
+      return res.status(400).json({ message: "No fields to update" });
     }
 
-    // Check if email is being changed and if it already exists
     if (email) {
       const existingUser = await UserModel.findOne({
         email,
         _id: { $ne: userId },
       });
       if (existingUser) {
-        return res.status(400).json({
-          message: "Email already in use",
-        });
+        return res.status(400).json({ message: "Email already in use" });
       }
     }
 
@@ -275,18 +188,10 @@ const updateUser = async (req, res) => {
     if (webNotifications !== undefined)
       updateData.webNotifications = webNotifications;
 
-    // Handle profile picture update
     if (req.file) {
-      let fullUrl;
-      // If using Cloudinary, req.file.path is the full secure_url (starts with http)
-      if (req.file.path && req.file.path.startsWith("http")) {
-        fullUrl = req.file.path;
-      } else {
-        // Fallback for Local Development (DiskStorage)
-        const protocol = req.protocol;
-        const host = req.get("host");
-        fullUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
-      }
+      const fullUrl = req.file.path?.startsWith("http")
+        ? req.file.path
+        : `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
       updateData.profilePicture = fullUrl;
     }
 
@@ -295,62 +200,41 @@ const updateUser = async (req, res) => {
     }).select("-password -refreshToken");
 
     if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({
-      message: "User updated successfully",
-      user: user,
-    });
+    res.json({ message: "Profile updated", user });
   } catch (error) {
-    res.status(500).json({
-      message: "Error updating user",
-      error: error.message,
-    });
+    res.status(500).json({ message: "Update failed", error: error.message });
   }
 };
 
 const changePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
-    const userId = req.user.id;
 
     if (!currentPassword || !newPassword) {
-      return res.status(400).json({
-        message: "Please provide current and new password",
-      });
+      return res.status(400).json({ message: "Both passwords required" });
     }
 
-    const user = await UserModel.findById(userId);
+    const user = await UserModel.findById(req.user.id);
     if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
-      return res.status(400).json({
-        message: "Invalid current password",
-      });
+      return res.status(400).json({ message: "Current password incorrect" });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
-
-    user.password = hashedPassword;
+    user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
 
-    res.status(200).json({
-      message: "Password updated successfully",
-    });
+    res.json({ message: "Password updated" });
   } catch (error) {
-    res.status(500).json({
-      message: "Error changing password",
-      error: error.message,
-    });
+    res
+      .status(500)
+      .json({ message: "Password change failed", error: error.message });
   }
 };
 
@@ -358,78 +242,61 @@ const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
     if (!email) {
-      return res.status(400).json({ message: "Please provide an email" });
+      return res.status(400).json({ message: "Email required" });
     }
 
-    // Normalize email
-    const normalizedEmail = email.trim(); // optional .toLowerCase() if you want
-
-    // Case-insensitive search
     const user = await UserModel.findOne({
-      email: { $regex: new RegExp(`^${normalizedEmail}$`, "i") },
+      email: { $regex: new RegExp(`^${email.trim()}$`, "i") },
     });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "No account with that email" });
     }
 
-    // Generate token
     const resetToken = crypto.randomBytes(20).toString("hex");
-
-    // Hash token and save to database
     user.resetPasswordToken = crypto
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
-    user.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
-
+    user.resetPasswordExpires = Date.now() + 10 * 60 * 1000;
     await user.save();
 
-    // Create reset URL
     const resetUrl = `${req.protocol}://localhost:5173/reset-password/${resetToken}`;
+    const message = `Reset your password by visiting: ${resetUrl}`;
 
-    // Message
-    const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
-
-    // Send email (Mock or Real)
     try {
       if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
         const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
-            user: process.env.EMAIL_USER, // Your Gmail address
-            pass: process.env.EMAIL_PASS, // Your Gmail App Password
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
           },
         });
 
         await transporter.sendMail({
           from: process.env.EMAIL_USER,
           to: user.email,
-          subject: "Password Reset Token",
+          subject: "Password Reset Request",
           text: message,
         });
       } else {
-        console.log("----------------------------------------------------");
-        console.log("MOCK EMAIL SENDER (Configure .env for real emails)");
+        console.log("Password reset email (development mode):");
         console.log(`To: ${user.email}`);
-        console.log(`Subject: Password Reset Token`);
-        console.log(`Message: \n${message}`);
-        console.log("----------------------------------------------------");
+        console.log(`Message: ${message}`);
       }
 
-      res.status(200).json({ success: true, data: "Email sent" });
+      res.json({ message: "Password reset email sent" });
     } catch (err) {
-      console.error(err);
       user.resetPasswordToken = undefined;
       user.resetPasswordExpires = undefined;
       await user.save();
-      return res.status(500).json({ message: "Email could not be sent" });
+      return res.status(500).json({ message: "Failed to send email" });
     }
   } catch (error) {
-    res.status(500).json({
-      message: "Error processing forgot password",
-      error: error.message,
-    });
+    res
+      .status(500)
+      .json({ message: "Password reset failed", error: error.message });
   }
 };
 
@@ -439,15 +306,13 @@ const resetPassword = async (req, res) => {
     const { password } = req.body;
 
     if (!password) {
-      return res.status(400).json({ message: "Please provide a new password" });
+      return res.status(400).json({ message: "Password required" });
     }
 
-    // Hash token to match database
     const resetPasswordToken = crypto
       .createHash("sha256")
       .update(token)
       .digest("hex");
-
     const user = await UserModel.findOne({
       resetPasswordToken,
       resetPasswordExpires: { $gt: Date.now() },
@@ -457,23 +322,16 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ message: "Invalid or expired token" });
     }
 
-    // Set new password
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+    user.password = await bcrypt.hash(password, 10);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
-
     await user.save();
 
-    res.status(200).json({
-      success: true,
-      message: "Password reset successful",
-    });
+    res.json({ message: "Password reset successful" });
   } catch (error) {
-    res.status(500).json({
-      message: "Error resetting password",
-      error: error.message,
-    });
+    res
+      .status(500)
+      .json({ message: "Password reset failed", error: error.message });
   }
 };
 
