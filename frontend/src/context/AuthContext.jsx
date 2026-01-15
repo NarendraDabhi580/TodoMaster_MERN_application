@@ -31,12 +31,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async () => {
+    // Optimistically set authenticated to prevent flash of login page
+    setIsAuthenticated(true);
+
     try {
       const response = await axiosInstance.get("/auth/me");
       setUser(response.data.user);
-      setIsAuthenticated(true);
     } catch (error) {
       console.error("Error fetching user data on login:", error);
+      // If fetching user fails, revert authentication state
+      setIsAuthenticated(false);
+      setUser(null);
     }
   };
 
